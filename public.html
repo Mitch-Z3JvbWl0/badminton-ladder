@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FBD Badminton League</title>
+<link rel="icon" href="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f3f8.png" type="image/png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#f4f6f9;}
+  header {background:#002147;color:white;padding:1rem;text-align:center;}
+  header h1 {margin:0;}
+  nav {background:#004080;display:flex;justify-content:center;flex-wrap:wrap;}
+  nav a {color:white;text-decoration:none;padding:0.8rem 1.5rem;display:block;}
+  nav a:hover {background:#003060;}
+  .active {background:#001a33;}
+  main {max-width:1100px;margin:2rem auto;padding:1rem;background:white;
+        border-radius:8px;box-shadow:0 3px 6px rgba(0,0,0,0.15);}
+  h2 {margin-top:0;color:#004080;border-bottom:2px solid #eee;padding-bottom:0.5rem;}
+  .table-wrapper {overflow-x:auto;}
+  table {width:100%;border-collapse:collapse;margin:1.5rem 0;min-width:600px;}
+  th,td {padding:0.6rem 0.8rem;border:1px solid #ccc;text-align:center;}
+  th {background:#004080;color:white;}
+  .fixtures th {background:#555;}
+  .winner {font-weight:bold;color:#008000;}
+  .nav-page {display:none;}
+  h3 {margin-top:1.5rem;color:#004080;}
+  h4 {margin-top:1rem;}
+  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;}
+  .gold {background:#ffd70020;}
+  .silver {background:#c0c0c020;}
+  .bronze {background:#cd7f3220;}
+  details summary {cursor:pointer;font-weight:bold;padding:0.5rem;background:#eee;margin:0.5rem 0;}
+</style>
+</head>
+<body>
+  <header>
+    <h1>🏸 FBD Badminton League</h1>
+    <p>Fixtures · Standings · Stats · Schedule</p>
+  </header>
+  <nav>
+    <a href="#" class="active" onclick="showPage('home', this)">Home</a>
+    <a href="#" onclick="showPage('standings', this)">Standings</a>
+    <a href="#" onclick="showPage('players', this)">Player Stats</a>
+    <a href="#" onclick="showPage('charts', this)">Charts</a>
+    <a href="#" onclick="showPage('schedule', this)">Schedule</a>
+  </nav>
+
+  <main>
+    <!-- Fixtures -->
+    <section id="home" class="nav-page" style="display:block">
+      <h2>Fixtures & Results</h2>
+      <div id="fixturesContainer"></div>
+    </section>
+
+    <!-- Standings -->
+    <section id="standings" class="nav-page">
+      <h2>League Standings</h2>
+      <div class="table-wrapper">
+        <table id="standingsTable">
+          <thead>
+            <tr><th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR (Elo)</th></tr>
+          </thead><tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Player Stats -->
+    <section id="players" class="nav-page">
+      <h2>Player Statistics</h2>
+      <div id="playerStats"></div>
+    </section>
+
+    <!-- Charts -->
+    <section id="charts" class="nav-page">
+      <h2>League Charts</h2>
+      <canvas id="pointsChart"></canvas>
+      <br>
+      <canvas id="eloChart"></canvas>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" class="nav-page">
+      <h2>Round Robin Schedule</h2>
+      <div class="table-wrapper">
+        <table id="scheduleTable">
+          <thead><tr><th>Round</th><th>Player A</th><th>Player B</th><th>Court</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ⚡ Elo Ratings (K=32). Responsive & Charts added. FBD Badminton League.
+  </footer>
+
+<script>
+// === Fixtures (25 matches) ===
+let fixtures = [
+ {A:"Will",B:"Luke",Ascore:14,Bscore:16,Winner:"Luke"},
+ {A:"James",B:"Mitch",Ascore:6,Bscore:11,Winner:"Mitch"},
+ {A:"Jordan",B:"Will",Ascore:11,Bscore:5,Winner:"Jordan"},
+ {A:"Luke",B:"James",Ascore:5,Bscore:11,Winner:"James"},
+ {A:"Mitch",B:"Jordan",Ascore:11,Bscore:9,Winner:"Mitch"},
+ {A:"Will",B:"James",Ascore:7,Bscore:11,Winner:"James"},
+ {A:"Jordan",B:"Luke",Ascore:11,Bscore:8,Winner:"Jordan"},
+ {A:"Mitch",B:"Will",Ascore:11,Bscore:8,Winner:"Mitch"},
+ {A:"James",B:"Jordan",Ascore:3,Bscore:11,Winner:"Jordan"},
+ {A:"Luke",B:"Mitch",Ascore:9,Bscore:11,Winner:"Mitch"},
+ {A:"Will",B:"Kepp",Ascore:21,Bscore:18,Winner:"Will"},
+ {A:"Luke",B:"Jordan",Ascore:12,Bscore:21,Winner:"Jordan"},
+ {A:"James",B:"Mitch",Ascore:18,Bscore:21,Winner:"Mitch"},
+ {A:"Kepp",B:"Luke",Ascore:19,Bscore:21,Winner:"Luke"},
+ {A:"Will",B:"Jordan",Ascore:12,Bscore:21,Winner:"Jordan"},
+ {A:"James",B:"Kepp",Ascore:21,Bscore:16,Winner:"James"},
+ {A:"Mitch",B:"Luke",Ascore:21,Bscore:10,Winner:"Mitch"},
+ {A:"Jordan",B:"Kepp",Ascore:21,Bscore:8,Winner:"Jordan"},
+ {A:"Will",B:"James",Ascore:17,Bscore:21,Winner:"James"},
+ {A:"Mitch",B:"Jordan",Ascore:21,Bscore:14,Winner:"Mitch"},
+ {A:"Luke",B:"James",Ascore:22,Bscore:24,Winner:"James"},
+ {A:"Will",B:"Mitch",Ascore:17,Bscore:21,Winner:"Mitch"},
+ {A:"Jordan",B:"James",Ascore:21,Bscore:17,Winner:"Jordan"},
+ {A:"Kepp",B:"Mitch",Ascore:15,Bscore:21,Winner:"Mitch"},
+ {A:"Will",B:"Luke",Ascore:18,Bscore:21,Winner:"Luke"}
+];
+
+const K=32, initial=1000;
+
+// === League Builder ===
+function buildLeague(fixtures){
+  const players={};
+  function ensurePlayer(n){
+    if(!players[n]) players[n]={name:n,rating:initial,played:0,wins:0,losses:0,points:0,for:0,against:0,h2h:{},eloHistory:[initial]};
+    return players[n];
+  }
+  fixtures.forEach((m,i)=>{
+    let A=ensurePlayer(m.A), B=ensurePlayer(m.B);
+    if(!A.h2h[B.name]) A.h2h[B.name]={played:0,wins:0,losses:0,for:0,against:0};
+    if(!B.h2h[A.name]) B.h2h[A.name]={played:0,wins:0,losses:0,for:0,against:0};
+    let Ea=1/(1+10**((B.rating-A.rating)/400));
+    let Sa=(m.Winner===m.A)?1:0; let Sb=1-Sa;
+    if(Sa){A.wins++;B.losses++; A.h2h[B.name].wins++; B.h2h[A.name].losses++;}
+    else {B.wins++;A.losses++; B.h2h[A.name].wins++; A.h2h[B.name].losses++;}
+    A.played++; B.played++;
+    A.points+=Sa*3; B.points+=Sb*3;
+    A.for+=m.Ascore; A.against+=m.Bscore;
+    B.for+=m.Bscore; B.against+=m.Ascore;
+    A.h2h[B.name].played++; B.h2h[A.name].played++;
+    A.h2h[B.name].for+=m.Ascore; A.h2h[B.name].against+=m.Bscore;
+    B.h2h[A.name].for+=m.Bscore; B.h2h[A.name].against+=m.Ascore;
+    A.rating=A.rating+K*(Sa-Ea);
+    B.rating=B.rating+K*(Sb-(1-Ea));
+    A.eloHistory.push(A.rating);
+    B.eloHistory.push(B.rating);
+  });
+  return players;
+}
+
+// === Render All ===
+function renderAll(){
+  const players=buildLeague(fixtures);
+  const standings=Object.values(players).sort((a,b)=>b.points-a.points||b.rating-a.rating);
+
+  // Fixtures grouped by rounds (5 per round here as example)
+  const fDiv=document.getElementById("fixturesContainer"); fDiv.innerHTML="";
+  let roundSize=5; 
+  for(let r=0;r<Math.ceil(fixtures.length/roundSize);r++){
+    const details=document.createElement("details");
+    if(r===Math.ceil(fixtures.length/roundSize)-1) details.open=true;
+    const summary=document.createElement("summary");
+    summary.textContent=`Round ${r+1}`;
+    details.appendChild(summary);
+    const tbl=document.createElement("table");
+    tbl.classList.add("fixtures");
+    tbl.innerHTML="<thead><tr><th>ID</th><th>Player A</th><th>Score</th><th>Player B</th><th>Score</th><th>Winner</th></tr></thead>";
+    const tb=document.createElement("tbody");
+    fixtures.slice(r*roundSize,(r+1)*roundSize).forEach((m,i)=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${r*roundSize+i+1}</td><td>${m.A}</td><td>${m.Ascore}</td>
+                    <td>${m.B}</td><td>${m.Bscore}</td><td class="winner">${m.Winner}</td>`;
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb); details.appendChild(tbl); fDiv.appendChild(details);
+  }
+
+  // Standings with leader highlights
+  const sBody=document.querySelector("#standingsTable tbody"); sBody.innerHTML="";
+  standings.forEach((p,i)=>{
+    const tr=document.createElement("tr");
+    if(i===0) tr.classList.add("gold");
+    if(i===1) tr.classList.add("silver");
+    if(i===2) tr.classList.add("bronze");
+    let medal = (i===0?"🥇":i===1?"🥈":i===2?"🥉":"");
+    tr.innerHTML=`<td>${i+1}</td><td>${medal} ${p.name}</td><td>${p.played}</td>
+                  <td>${p.wins}</td><td>${p.losses}</td>
+                  <td>${p.points}</td><td>${p.rating.toFixed(1)}</td>`;
+    sBody.appendChild(tr);
+  });
+
+  // Player stats
+  const statsDiv=document.getElementById("playerStats"); statsDiv.innerHTML="";
+  standings.forEach(p=>{
+    let avgMargin=(p.played?(p.for-p.against)/p.played:0).toFixed(1);
+    let card=document.createElement("div");
+    let h2hTable="<div class='table-wrapper'><table><tr><th>Opponent</th><th>Played</th><th>W</th><th>L</th><th>For</th><th>Against</th><th>Margin</th></tr>";
+    Object.keys(p.h2h).forEach(o=>{
+      let h=p.h2h[o];
+      let margin=((h.for-h.against)/(h.played||1)).toFixed(1);
+      h2hTable+=`<tr><td>${o}</td><td>${h.played}</td><td>${h.wins}</td><td>${h.losses}</td>
+                 <td>${h.for}</td><td>${h.against}</td><td>${margin}</td></tr>`;
+    });
+    h2hTable+="</table></div>";
+    card.innerHTML=`<h3>${p.name}</h3>
+      <div class="table-wrapper"><table>
+        <tr><th>Played</th><td>${p.played}</td><th>Wins</th><td>${p.wins}</td><th>Losses</th><td>${p.losses}</td></tr>
+        <tr><th>Points</th><td>${p.points}</td><th>For</th><td>${p.for}</td><th>Against</th><td>${p.against}</td></tr>
+        <tr><th>Avg Margin</th><td>${avgMargin}</td><th>MMR</th><td colspan="3">${p.rating.toFixed(1)}</td></tr>
+      </table></div>
+      <h4>Head to Head</h4>${h2hTable}`;
+    statsDiv.appendChild(card);
+  });
+
+  // Charts
+  const ctx1=document.getElementById("pointsChart").getContext("2d");
+  new Chart(ctx1,{type:'bar',data:{labels:standings.map(p=>p.name),
+    datasets:[{label:'Points',data:standings.map(p=>p.points),backgroundColor:'#004080'}]}});
+  const ctx2=document.getElementById("eloChart").getContext("2d");
+  new Chart(ctx2,{type:'line',
+    data:{labels:fixtures.map((_,i)=>i+1),
+    datasets:standings.map(p=>({label:p.name,data:p.eloHistory,borderWidth:2,fill:false}))},
+    options:{responsive:true,interaction:{mode:'index'}}});
+  
+  // Schedule (round robin)
+  const schedBody=document.querySelector("#scheduleTable tbody"); schedBody.innerHTML="";
+  const names=standings.map(p=>p.name);
+  if(names.length%2===1) names.push("BYE");
+  const n=names.length; let arr=names.slice();
+  const rounds=n-1;
+  for(let r=0;r<rounds;r++){
+    for(let i=0;i<n/2;i++){
+      let A=arr[i], B=arr[n-1-i];
+      if(A!=="BYE" && B!=="BYE"){
+        let court=(i<2)?`Court ${i+1}`:"Overflow";
+        let tr=document.createElement("tr");
+        tr.innerHTML=`<td>Round ${r+1}</td><td>${A}</td><td>${B}</td><td>${court}</td>`;
+        schedBody.appendChild(tr);
+      }
+    }
+    arr.splice(1,0,arr.pop());
+  }
+}
+
+function showPage(id,link){
+ document.querySelectorAll(".nav-page").forEach(sec=>sec.style.display="none");
+ document.getElementById(id).style.display="block";
+ document.querySelectorAll("nav a").forEach(a=>a.classList.remove("active"));
+ link.classList.add("active");
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
