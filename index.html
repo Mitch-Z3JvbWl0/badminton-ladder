@@ -7,14 +7,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   body {font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#f4f6f9;}
-  header {background:#002147;color:white;padding:1rem;text-align:center;}
-  header h1 {margin:0;}
-  nav {background:#004080;display:flex;justify-content:center;flex-wrap:wrap;}
-  nav a {color:white;text-decoration:none;padding:0.8rem 1.5rem;display:block;}
+  header {background:#002147;color:white;padding:1rem;text-align:center; margin-bottom:1rem;}
+  header h1 {margin:0;font-size:2rem;}
+  nav {background:#004080;display:flex;justify-content:center;flex-wrap:wrap;margin-bottom:1rem;}
+  nav a {color:white;text-decoration:none;padding:0.5rem 1rem;display:block;font-weight:bold;}
   nav a:hover {background:#003060;}
   .active {background:#001a33;}
-  main {max-width:1100px;margin:2rem auto;padding:1rem;background:white;
-        border-radius:8px;box-shadow:0 3px 6px rgba(0,0,0,0.15);}
+  .hero {background:url('https://source.unsplash.com/featured/?badminton') center/cover; padding:2rem; color:white; text-shadow:1px 1px 4px rgba(0,0,0,0.7); margin-bottom:1rem;}
+  .hero h2 {margin:0;font-size:1.8rem;}
+  main {max-width:1100px;margin:0 auto;padding:0 1rem;}
   h2 {margin-top:0;color:#004080;border-bottom:2px solid #eee;padding-bottom:0.5rem;}
   .table-wrapper {overflow-x:auto;}
   table {width:100%;border-collapse:collapse;margin:1.5rem 0;min-width:600px;}
@@ -24,88 +25,67 @@
   .winner {font-weight:bold;color:#008000;}
   .nav-page {display:none;}
   h3 {margin-top:1.5rem;color:#004080;}
-  h4 {margin-top:1rem;}
-  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;}
+  .profile-card, .stats-card {border-radius:8px; background:white; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:1rem; margin:1rem 0;}
+  .profile-card img {display:block;margin:0 auto 1rem; width:120px; height:120px; object-fit:cover; border-radius:50%;}
+  .profile-grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem;}
+  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;margin-top:2rem;}
   .gold {background:#ffd70020;}
   .silver {background:#c0c0c020;}
   .bronze {background:#cd7f3220;}
-  details summary {cursor:pointer;font-weight:bold;padding:0.5rem;background:#eee;margin:0.5rem 0;}
-  /* Responsive cards */
+  details summary {cursor:pointer;font-weight:bold;padding:0.5rem;background:#eee;margin:0.5rem 0; border-radius:4px;}
   @media (max-width:768px){
     table, thead, tbody, th, td, tr {display:block;}
-    thead {display:none;}
-    tr {margin:0 0 1rem 0;border:1px solid #ccc;padding:0.5rem;background:#fafafa;}
-    td {border:none;text-align:left;padding:0.3rem;}
+    th {position:absolute; top:-9999px; left:-9999px;}
+    tr {margin:0 0 1rem 0;border:1px solid #ccc;background:#fff;padding:0.5rem;border-radius:4px;}
+    td {border:none;text-align:left;padding:0.25rem;}
     td:before {font-weight:bold;display:inline-block;width:120px;}
-    #standingsTable td:nth-of-type(1):before {content:"Rank";}
-    #standingsTable td:nth-of-type(2):before {content:"Player";}
-    #standingsTable td:nth-of-type(3):before {content:"Played";}
-    #standingsTable td:nth-of-type(4):before {content:"Wins";}
-    #standingsTable td:nth-of-type(5):before {content:"Losses";}
-    #standingsTable td:nth-of-type(6):before {content:"Points";}
-    #standingsTable td:nth-of-type(7):before {content:"MMR";}
   }
-  #profilesContainer img {
-  display: block;
-  margin: 1rem auto;
-  max-width: 200px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
 </style>
 </head>
 <body>
   <header>
     <h1>🏸 FBD Badminton League</h1>
-    <p>Fixtures · Standings · Stats · Schedule · Profiles</p>
+    <p>Your friendly local badminton league—now league pro style!</p>
   </header>
+  <div class="hero">
+    <h2>Season <span id="seasonLabel">1</span></h2>
+  </div>
   <nav>
-    <a href="#" class="active" onclick="showPage('home', this)">Fixtures</a>
-    <a href="#" onclick="showPage('standings', this)">Standings</a>
-    <a href="#" onclick="showPage('players', this)">Player Stats</a>
-    <a href="#" onclick="showPage('charts', this)">Charts</a>
-    <a href="#" onclick="showPage('schedule', this)">Schedule</a>
-    <a href="#" onclick="showPage('profiles', this)">Player Profiles</a>
+    <a href="#" class="active" onclick="showPage('home',this)">Fixtures</a>
+    <a href="#" onclick="showPage('standings',this)">Standings</a>
+    <a href="#" onclick="showPage('players',this)">Player Stats</a>
+    <a href="#" onclick="showPage('charts',this)">Charts</a>
+    <a href="#" onclick="showPage('schedule',this)">Schedule</a>
+    <a href="#" onclick="showPage('profiles',this)">Player Profiles</a>
+    <select id="seasonSelect" onchange="changeSeason(this.value)" style="margin-left:1rem;">
+      <option value="1">Season 1</option>
+      <option value="2">Season 2</option>
+    </select>
   </nav>
 
   <main>
-    <!-- Fixtures -->
     <section id="home" class="nav-page" style="display:block">
-      <h2>Fixtures & Results (Season <span id="seasonLabel">1</span>)</h2>
-      <select id="seasonSelect" onchange="changeSeason(this.value)">
-        <option value="1">Season 1</option>
-        <option value="2">Season 2 (future)</option>
-      </select>
+      <h2>Fixtures & Results</h2>
       <div id="fixturesContainer"></div>
     </section>
-
-    <!-- Standings -->
     <section id="standings" class="nav-page">
       <h2>League Standings</h2>
       <div class="table-wrapper">
         <table id="standingsTable">
-          <thead>
-            <tr><th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR (Elo)</th></tr>
-          </thead><tbody></tbody>
+          <thead><tr><th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th></tr></thead>
+          <tbody></tbody>
         </table>
       </div>
     </section>
-
-    <!-- Player Stats -->
     <section id="players" class="nav-page">
       <h2>Player Statistics</h2>
       <div id="playerStats"></div>
     </section>
-
-    <!-- Charts -->
     <section id="charts" class="nav-page">
       <h2>League Charts</h2>
-      <canvas id="pointsChart"></canvas>
-      <br>
+      <canvas id="pointsChart"></canvas><br>
       <canvas id="eloChart"></canvas>
     </section>
-
-    <!-- Schedule -->
     <section id="schedule" class="nav-page">
       <h2>Round Robin Schedule</h2>
       <div class="table-wrapper">
@@ -115,20 +95,15 @@
         </table>
       </div>
     </section>
-
-    <!-- Profiles -->
     <section id="profiles" class="nav-page">
       <h2>Player Profiles</h2>
-      <div id="profilesContainer"></div>
+      <div class="profile-grid" id="profilesContainer"></div>
     </section>
   </main>
 
-  <footer>
-    ⚡ FBD Badminton League – Season-ready, Mobile-friendly, Player Profiles included.
-  </footer>
+  <footer>FBD Badminton League • 2025 • Powered by live Elo & responsive UI.</footer>
 
 <script src="data.js"></script>
 <script src="league.js"></script>
 </body>
 </html>
-
