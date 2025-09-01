@@ -5,208 +5,105 @@
 <title>FBD Badminton League</title>
 <link rel="icon" href="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f3f8.png" type="image/png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --league-blue:#002147;
+    --league-navy:#004080;
+    --league-hover:#003060;
+    --league-green:#1db954;
+    --bg-light:#f4f6f9;
+    --text-dark:#222;
+  }
   body {
-    font-family:'Segoe UI','Roboto','Helvetica Neue',Arial,sans-serif;
-    margin:0;
-    background:#f4f6f9;
-    color:#222;
-    line-height:1.5;
+    font-family:'Roboto','Segoe UI',Arial,sans-serif;
+    margin:0;background:var(--bg-light);color:var(--text-dark);line-height:1.5;
+    transition:background 0.3s,color 0.3s;
   }
+  body.dark {background:#121212;color:#eee;}
   header {
-    background:#002147;
-    color:white;
-    padding:1.5rem 1rem;
-    text-align:center;
-    margin-bottom:1rem;
+    background:var(--league-blue);color:white;padding:2rem 1rem;text-align:center;
+    margin-bottom:0;position:relative;
   }
-  header h1 {
-    margin:0;
-    font-size:2.2rem;
-    font-weight:700;
-    letter-spacing:0.5px;
-  }
-  header p {
-    margin:0.3rem 0 0;
-    font-weight:300;
-    font-size:1rem;
-  }
+  header h1 {margin:0;font-size:2.5rem;font-weight:700;font-family:'Montserrat';letter-spacing:0.5px;}
+  header p {margin:0.5rem 0 0;font-weight:300;font-size:1rem;}
   nav {
-    background:#004080;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-bottom:1rem;
+    background:var(--league-navy);display:flex;justify-content:center;flex-wrap:wrap;
+    position:sticky;top:0;z-index:1000;
   }
   nav a {
-    color:white;
-    text-decoration:none;
-    padding:0.6rem 1rem;
-    display:block;
-    font-weight:500;
-    letter-spacing:0.3px;
-    transition:background 0.2s ease;
+    color:white;text-decoration:none;padding:0.8rem 1.2rem;display:block;
+    font-weight:500;letter-spacing:0.3px;transition:background 0.2s;
   }
-  nav a:hover {background:#003060;}
-  .active {background:#001a33;}
-
+  nav a:hover {background:var(--league-hover);}
+  .active {background:var(--league-blue);}
+  .dark-toggle {
+    position:absolute;top:10px;right:10px;background:white;color:var(--league-navy);
+    border:none;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.8rem;
+  }
   .hero {
-    background:url('https://source.unsplash.com/featured/?badminton') center/cover;
-    padding:2rem;
-    color:white;
-    text-shadow:1px 1px 4px rgba(0,0,0,0.7);
-    margin-bottom:1rem;
-    text-align:center;
+    background:url('https://source.unsplash.com/featured/?badminton,court') center/cover;
+    padding:3rem;color:white;text-shadow:1px 1px 4px rgba(0,0,0,0.8);text-align:center;
   }
-  .hero h2 {
-    margin:0;
-    font-size:1.8rem;
-    font-weight:600;
-    letter-spacing:0.4px;
-  }
-
-  main {max-width:1100px;margin:0 auto;padding:0 1rem;}
-
+  .hero h2 {margin:0;font-size:2rem;font-weight:700;font-family:'Montserrat';}
+  main {max-width:1200px;margin:0 auto;padding:1rem;}
   h2 {
-    margin-top:0;
-    color:#004080;
-    border-bottom:2px solid #eee;
-    padding-bottom:0.5rem;
-    font-weight:600;
-    font-size:1.4rem;
-    letter-spacing:0.3px;
+    color:var(--league-navy);border-bottom:2px solid #eee;padding-bottom:0.5rem;
+    font-family:'Montserrat';font-weight:600;font-size:1.4rem;margin-top:1rem;
   }
-  h3 {
-    color:#004080;
-    font-size:1.2rem;
-    font-weight:600;
-    margin:0.8rem 0;
-  }
-  h4 {
-    font-size:1rem;
-    margin-top:1rem;
-    font-weight:500;
-    color:#333;
-  }
-
+  h3 {font-family:'Montserrat';font-weight:600;color:var(--league-navy);}
   .table-wrapper {overflow-x:auto;}
-  table {
-    width:100%;
-    border-collapse:collapse;
-    margin:1.5rem 0;
-    min-width:600px;
-    font-size:0.95rem;
-  }
-  th,td {
-    padding:0.6rem 0.8rem;
-    border:1px solid #ccc;
-    text-align:center;
-  }
+  table {width:100%;border-collapse:collapse;margin:1.5rem 0;min-width:600px;font-size:0.95rem;}
+  th,td {padding:0.6rem 0.8rem;border:1px solid #ccc;text-align:center;}
   th {
-    background:#004080;
-    color:white;
-    font-weight:600;
-    text-transform:uppercase;
-    font-size:0.8rem;
-    letter-spacing:0.5px;
+    background:var(--league-navy);color:white;font-weight:600;text-transform:uppercase;
+    font-size:0.8rem;letter-spacing:0.5px;
   }
   .fixtures th {background:#555;}
-  .winner {font-weight:600;color:#008000;}
+  .winner {font-weight:600;color:var(--league-green);}
   .nav-page {display:none;}
-
   .stats-card {
-    border-radius:8px;
-    background:white;
-    box-shadow:0 4px 8px rgba(0,0,0,0.1);
-    padding:1rem;
-    margin:1rem 0;
+    border-radius:8px;background:white;box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    padding:1rem;margin:1rem 0;transition:transform 0.2s;
   }
-
-  /* ✅ Profile styling */
-  .profile-grid {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:1rem;
+  .stats-card:hover {transform:translateY(-4px);}
+  /* Podium cards */
+  .podium {display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1rem 0;}
+  .podium-card {
+    flex:1 1 200px;max-width:220px;background:white;border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);text-align:center;padding:1rem;
   }
+  .podium-card img {width:100px;height:100px;border-radius:50%;object-fit:cover;}
+  .podium-card h3 {margin:0.5rem 0;}
+  /* Profiles */
+  .profile-grid {display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;}
   .profile-card {
-    flex:0 1 220px;
-    box-shadow:0 4px 8px rgba(0,0,0,0.1);
-    border-radius:8px;
-    background:white;
-    padding:1rem;
-    text-align:center;
-    font-size:0.95rem;
+    flex:0 1 240px;box-shadow:0 4px 8px rgba(0,0,0,0.1);border-radius:10px;background:white;
+    padding:1rem;text-align:center;transition:transform 0.2s;
   }
-  .profile-card img {
-    width:120px;
-    height:120px;
-    object-fit:cover;
-    border-radius:50%;
-    margin-bottom:0.8rem;
-  }
-  .profile-card h3 {
-    margin:0.3rem 0 0.6rem;
-    font-weight:600;
-    font-size:1.1rem;
-  }
-  .profile-card table {
-    width:100%;
-    border:none;
-    font-size:0.85rem;
-  }
-  .profile-card th {
-    background:none;
-    color:#666;
-    text-align:left;
-    font-weight:500;
-    border:none;
-    padding:0.3rem 0.5rem;
-  }
-  .profile-card td {
-    text-align:right;
-    border:none;
-    padding:0.3rem 0.5rem;
-    font-weight:500;
-    color:#333;
-  }
-
-  footer {
-    text-align:center;
-    padding:1rem;
-    font-size:0.85em;
-    color:#555;
-    margin-top:2rem;
-    font-weight:400;
-  }
-
-  .gold {background:#ffd70020;}
-  .silver {background:#c0c0c020;}
-  .bronze {background:#cd7f3220;}
-  details summary {
-    cursor:pointer;
-    font-weight:600;
-    padding:0.5rem;
-    background:#eee;
-    margin:0.5rem 0;
-    border-radius:4px;
-  }
-
+  .profile-card:hover {transform:translateY(-4px);}
+  .profile-card img {width:140px;height:140px;object-fit:cover;border-radius:50%;margin-bottom:0.8rem;}
+  .profile-card h3 {margin:0.3rem 0;font-size:1.1rem;font-weight:700;}
+  .profile-card table {width:100%;border:none;font-size:0.9rem;}
+  .profile-card th {background:none;color:#666;text-align:left;font-weight:500;border:none;padding:0.3rem 0.5rem;}
+  .profile-card td {text-align:right;border:none;padding:0.3rem 0.5rem;font-weight:500;}
+  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;margin-top:2rem;font-weight:400;}
+  details summary {cursor:pointer;font-weight:600;padding:0.5rem;background:#eee;margin:0.5rem 0;border-radius:4px;}
+  /* Mobile tweaks */
   @media (max-width:768px){
     table, thead, tbody, th, td, tr {display:block;}
-    th {position:absolute; top:-9999px; left:-9999px;}
+    th {position:absolute;top:-9999px;left:-9999px;}
     tr {margin:0 0 1rem 0;border:1px solid #ccc;background:#fff;padding:0.5rem;border-radius:4px;}
     td {border:none;text-align:left;padding:0.25rem;}
     td:before {font-weight:bold;display:inline-block;width:120px;}
   }
 </style>
-
-
 </head>
 <body>
   <header>
     <h1>🏸 FBD Badminton League</h1>
-    <p>Your friendly local badminton league—now league pro style!</p>
+    <p>Friendly. Competitive. Data-Driven.</p>
+    <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
   </header>
   <div class="hero">
     <h2>Season <span id="seasonLabel">1</span></h2>
@@ -231,6 +128,7 @@
     </section>
     <section id="standings" class="nav-page">
       <h2>League Standings</h2>
+      <div class="podium" id="podiumContainer"></div>
       <div class="table-wrapper">
         <table id="standingsTable">
           <thead><tr><th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th></tr></thead>
@@ -262,11 +160,9 @@
     </section>
   </main>
 
-  <footer>FBD Badminton League • 2025 • Powered by live Elo & responsive UI.</footer>
+  <footer>© 2025 FBD Badminton League • Powered by Elo & Charts</footer>
 
 <script src="data.js"></script>
 <script src="league.js"></script>
 </body>
 </html>
-
-
