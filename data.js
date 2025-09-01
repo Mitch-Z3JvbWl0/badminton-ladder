@@ -32,10 +32,10 @@ const fixturesBySeason = {
 
 // Player profiles
 const playerProfiles = {
-  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"/images/mitch.png"},
-  "Luke": {hand:"Left",height:"1.74m",age:29,racket:"",image:"mitch.png"},
-  "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Nanoflare 700",image:"mitch.png"},
-  "Will": {hand:"Right",height:"1.75m",age:27,racket:"Yonex Arcsaber 11",image:"mitch.png"},
-  "Jordan": {hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Aeronaut",image:"mitch.png"},
-  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Yonex Voltric Z-Force II",image:"mitch.png"}
+  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"images/mitch.png"},
+  "Luke": {hand:"Left",height:"1.74m",age:29,racket:"",image:"images/luke.png"},
+  "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Nanoflare 700",image:"images/james.png"},
+  "Will": {hand:"Right",height:"1.75m",age:27,racket:"Yonex Arcsaber 11",image:"images/will.png"},
+  "Jordan": {hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Aeronaut",image:"images/jordan.png"},
+  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Yonex Voltric Z-Force II",image:"images/kepp.png"}
 };
