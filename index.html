@@ -25,9 +25,29 @@
   .winner {font-weight:bold;color:#008000;}
   .nav-page {display:none;}
   h3 {margin-top:1.5rem;color:#004080;}
-  .profile-card, .stats-card {border-radius:8px; background:white; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:1rem; margin:1rem 0;}
-  .profile-card img {display:block;margin:0 auto 1rem; width:120px; height:120px; object-fit:cover; border-radius:50%;}
-  .profile-grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem;}
+  .stats-card {border-radius:8px; background:white; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:1rem; margin:1rem 0;}
+  /* ✅ New profile styling */
+  .profile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .profile-card {
+    flex: 0 1 220px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    background: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  .profile-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
   footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;margin-top:2rem;}
   .gold {background:#ffd70020;}
   .silver {background:#c0c0c020;}
@@ -41,6 +61,7 @@
     td:before {font-weight:bold;display:inline-block;width:120px;}
   }
 </style>
+
 </head>
 <body>
   <header>
@@ -107,3 +128,4 @@
 <script src="league.js"></script>
 </body>
 </html>
+
