@@ -32,10 +32,10 @@ const fixturesBySeason = {
 
 // Player profiles
 const playerProfiles = {
-  "Mitch": {hand:"Right",height:"1.80m",age:32,racket:"Yonex Astrox 88D"},
-  "Luke": {hand:"Right",height:"1.82m",age:28,racket:"Yonex Nanoflare 700"},
-  "James": {hand:"Left",height:"1.76m",age:31,racket:"Victor Thruster K"},
-  "Will": {hand:"Right",height:"1.85m",age:30,racket:"Yonex Duora 10"},
-  "Jordan": {hand:"Right",height:"1.78m",age:29,racket:"Li-Ning Aeronaut"},
-  "Kepp": {hand:"Right",height:"1.80m",age:27,racket:"Yonex Voltric Z-Force II"}
+  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D"},
+  "Luke": {hand:"Left",height:"1.74m",age:29,racket:"Yonex Nanoflare 700"},
+  "James": {hand:"Right",height:"1.79m",age:27,racket:"Victor Thruster K"},
+  "Will": {hand:"Right",height:"1.74m",age:27,racket:"Yonex Duora 10"},
+  "Jordan": {hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Aeronaut"},
+  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Yonex Voltric Z-Force II"}
 };
