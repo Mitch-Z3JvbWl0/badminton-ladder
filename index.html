@@ -161,5 +161,12 @@
 
 <script src="data.js"></script>
 <script src="league.js"></script>
+  <script>
+  const bust = Date.now(); // unique number every reload
+  document.write('<script src="data.js?v='+bust+'"><\/script>');
+  document.write('<script src="league.js?v='+bust+'"><\/script>');
+</script>
+
 </body>
 </html>
+
