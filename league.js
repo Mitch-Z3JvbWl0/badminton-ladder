@@ -138,19 +138,24 @@ function renderAll(){
   }
 
   // Profiles page
-  const pDiv=document.getElementById("profilesContainer"); pDiv.innerHTML="";
-  Object.keys(playerProfiles).forEach(name=>{
-    const prof=playerProfiles[name];
-    const card=document.createElement("div");
-    card.innerHTML=`<h3 id="profile-${name}">${name}</h3>
-      <div class="table-wrapper"><table>
-        <tr><th>Hand</th><td>${prof.hand}</td></tr>
-        <tr><th>Height</th><td>${prof.height}</td></tr>
-        <tr><th>Age</th><td>${prof.age}</td></tr>
-        <tr><th>Racket</th><td>${prof.racket}</td></tr>
-      </table></div>`;
-    pDiv.appendChild(card);
-  });
+const pDiv=document.getElementById("profilesContainer"); 
+pDiv.innerHTML="";
+Object.keys(playerProfiles).forEach(name=>{
+  const prof=playerProfiles[name];
+  const card=document.createElement("div");
+  card.style.marginBottom="2rem";
+  card.innerHTML=`
+    <h3 id="profile-${name}">${name}</h3>
+    ${prof.image ? `<img src="${prof.image}" alt="${name}" style="max-width:200px;border-radius:8px;margin-bottom:1rem;">` : ""}
+    <div class="table-wrapper"><table>
+      <tr><th>Hand</th><td>${prof.hand}</td></tr>
+      <tr><th>Height</th><td>${prof.height}</td></tr>
+      <tr><th>Age</th><td>${prof.age}</td></tr>
+      <tr><th>Racket</th><td>${prof.racket}</td></tr>
+    </table></div>`;
+  pDiv.appendChild(card);
+});
+
 }
 
 // === Season change ===
