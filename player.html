@@ -47,6 +47,11 @@
     <div id="headToHead"></div>
   </div>
 </main>
+<script>
+  const bust = Date.now();
+  document.write('<script src="data.js?v='+bust+'"><\/script>');
+  document.write('<script src="player.js?v='+bust+'"><\/script>');
+</script>
 
 <script src="data.js"></script>
 <script src="player.js"></script>
