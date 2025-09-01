@@ -6,53 +6,192 @@
 <link rel="icon" href="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f3f8.png" type="image/png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  body {font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#f4f6f9;}
-  header {background:#002147;color:white;padding:1rem;text-align:center; margin-bottom:1rem;}
-  header h1 {margin:0;font-size:2rem;}
-  nav {background:#004080;display:flex;justify-content:center;flex-wrap:wrap;margin-bottom:1rem;}
-  nav a {color:white;text-decoration:none;padding:0.5rem 1rem;display:block;font-weight:bold;}
+  body {
+    font-family:'Segoe UI','Roboto','Helvetica Neue',Arial,sans-serif;
+    margin:0;
+    background:#f4f6f9;
+    color:#222;
+    line-height:1.5;
+  }
+  header {
+    background:#002147;
+    color:white;
+    padding:1.5rem 1rem;
+    text-align:center;
+    margin-bottom:1rem;
+  }
+  header h1 {
+    margin:0;
+    font-size:2.2rem;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header p {
+    margin:0.3rem 0 0;
+    font-weight:300;
+    font-size:1rem;
+  }
+  nav {
+    background:#004080;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:1rem;
+  }
+  nav a {
+    color:white;
+    text-decoration:none;
+    padding:0.6rem 1rem;
+    display:block;
+    font-weight:500;
+    letter-spacing:0.3px;
+    transition:background 0.2s ease;
+  }
   nav a:hover {background:#003060;}
   .active {background:#001a33;}
-  .hero {background:url('https://source.unsplash.com/featured/?badminton') center/cover; padding:2rem; color:white; text-shadow:1px 1px 4px rgba(0,0,0,0.7); margin-bottom:1rem;}
-  .hero h2 {margin:0;font-size:1.8rem;}
+
+  .hero {
+    background:url('https://source.unsplash.com/featured/?badminton') center/cover;
+    padding:2rem;
+    color:white;
+    text-shadow:1px 1px 4px rgba(0,0,0,0.7);
+    margin-bottom:1rem;
+    text-align:center;
+  }
+  .hero h2 {
+    margin:0;
+    font-size:1.8rem;
+    font-weight:600;
+    letter-spacing:0.4px;
+  }
+
   main {max-width:1100px;margin:0 auto;padding:0 1rem;}
-  h2 {margin-top:0;color:#004080;border-bottom:2px solid #eee;padding-bottom:0.5rem;}
+
+  h2 {
+    margin-top:0;
+    color:#004080;
+    border-bottom:2px solid #eee;
+    padding-bottom:0.5rem;
+    font-weight:600;
+    font-size:1.4rem;
+    letter-spacing:0.3px;
+  }
+  h3 {
+    color:#004080;
+    font-size:1.2rem;
+    font-weight:600;
+    margin:0.8rem 0;
+  }
+  h4 {
+    font-size:1rem;
+    margin-top:1rem;
+    font-weight:500;
+    color:#333;
+  }
+
   .table-wrapper {overflow-x:auto;}
-  table {width:100%;border-collapse:collapse;margin:1.5rem 0;min-width:600px;}
-  th,td {padding:0.6rem 0.8rem;border:1px solid #ccc;text-align:center;}
-  th {background:#004080;color:white;}
+  table {
+    width:100%;
+    border-collapse:collapse;
+    margin:1.5rem 0;
+    min-width:600px;
+    font-size:0.95rem;
+  }
+  th,td {
+    padding:0.6rem 0.8rem;
+    border:1px solid #ccc;
+    text-align:center;
+  }
+  th {
+    background:#004080;
+    color:white;
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:0.8rem;
+    letter-spacing:0.5px;
+  }
   .fixtures th {background:#555;}
-  .winner {font-weight:bold;color:#008000;}
+  .winner {font-weight:600;color:#008000;}
   .nav-page {display:none;}
-  h3 {margin-top:1.5rem;color:#004080;}
-  .stats-card {border-radius:8px; background:white; box-shadow:0 4px 8px rgba(0,0,0,0.1); padding:1rem; margin:1rem 0;}
-  /* ✅ New profile styling */
+
+  .stats-card {
+    border-radius:8px;
+    background:white;
+    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    padding:1rem;
+    margin:1rem 0;
+  }
+
+  /* ✅ Profile styling */
   .profile-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:1rem;
   }
   .profile-card {
-    flex: 0 1 220px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    background: white;
-    padding: 1rem;
-    text-align: center;
+    flex:0 1 220px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    border-radius:8px;
+    background:white;
+    padding:1rem;
+    text-align:center;
+    font-size:0.95rem;
   }
   .profile-card img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:50%;
+    margin-bottom:0.8rem;
   }
-  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;margin-top:2rem;}
+  .profile-card h3 {
+    margin:0.3rem 0 0.6rem;
+    font-weight:600;
+    font-size:1.1rem;
+  }
+  .profile-card table {
+    width:100%;
+    border:none;
+    font-size:0.85rem;
+  }
+  .profile-card th {
+    background:none;
+    color:#666;
+    text-align:left;
+    font-weight:500;
+    border:none;
+    padding:0.3rem 0.5rem;
+  }
+  .profile-card td {
+    text-align:right;
+    border:none;
+    padding:0.3rem 0.5rem;
+    font-weight:500;
+    color:#333;
+  }
+
+  footer {
+    text-align:center;
+    padding:1rem;
+    font-size:0.85em;
+    color:#555;
+    margin-top:2rem;
+    font-weight:400;
+  }
+
   .gold {background:#ffd70020;}
   .silver {background:#c0c0c020;}
   .bronze {background:#cd7f3220;}
-  details summary {cursor:pointer;font-weight:bold;padding:0.5rem;background:#eee;margin:0.5rem 0; border-radius:4px;}
+  details summary {
+    cursor:pointer;
+    font-weight:600;
+    padding:0.5rem;
+    background:#eee;
+    margin:0.5rem 0;
+    border-radius:4px;
+  }
+
   @media (max-width:768px){
     table, thead, tbody, th, td, tr {display:block;}
     th {position:absolute; top:-9999px; left:-9999px;}
@@ -61,6 +200,7 @@
     td:before {font-weight:bold;display:inline-block;width:120px;}
   }
 </style>
+
 
 </head>
 <body>
@@ -128,4 +268,5 @@
 <script src="league.js"></script>
 </body>
 </html>
+
 
