@@ -12,7 +12,7 @@ function buildLeague(fixtures){
     return players[n];
   }
 
-  fixtures.forEach((m,i)=>{
+  fixtures.forEach((m)=>{
     let A=ensurePlayer(m.A), B=ensurePlayer(m.B);
     if(!A.h2h[B.name]) A.h2h[B.name]={played:0,wins:0,losses:0,for:0,against:0};
     if(!B.h2h[A.name]) B.h2h[A.name]={played:0,wins:0,losses:0,for:0,against:0};
@@ -86,7 +86,7 @@ function renderAll(){
     let tr=document.createElement("tr");
     let medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
     tr.innerHTML=`<td>${i+1}</td>
-                  <td><a href="#profiles" onclick="showProfile('${p.name}')">${medal} ${p.name}</a></td>
+                  <td><a href="player.html?name=${p.name}">${medal} ${p.name}</a></td>
                   <td>${p.played}</td><td>${p.wins}</td><td>${p.losses}</td>
                   <td>${p.points}</td><td>${p.rating.toFixed(1)}</td>`;
     sBody.appendChild(tr);
@@ -95,7 +95,7 @@ function renderAll(){
   // === Podium Highlight ===
   let podium=document.getElementById("podiumContainer"); 
   podium.innerHTML="";
-  standings.slice(0,3).forEach((p,i)=>{
+  standings.slice(0,3).forEach((p)=>{
     let prof=playerProfiles[p.name];
     let card=document.createElement("div"); 
     card.className="podium-card";
@@ -181,8 +181,9 @@ function renderAll(){
   Object.entries(playerProfiles).forEach(([name,prof])=>{
     let card=document.createElement("div"); 
     card.className="profile-card";
-    card.innerHTML=`<img src="${prof.image}" alt="${name}">
-      <h3 id="profile-${name}">${name}</h3>
+    card.innerHTML=`<a href="player.html?name=${name}">
+      <img src="${prof.image}" alt="${name}">
+      <h3 id="profile-${name}">${name}</h3></a>
       <table>
         <tr><th>Hand</th><td>${prof.hand}</td></tr>
         <tr><th>Height</th><td>${prof.height}</td></tr>
@@ -198,12 +199,6 @@ function changeSeason(val){
   currentSeason=val;
   document.getElementById("seasonLabel").textContent=val;
   renderAll();
-}
-
-// === Show specific profile ===
-function showProfile(name){
-  showPage("profiles", document.querySelector("nav a[href='#profiles']"));
-  document.getElementById("profile-"+name)?.scrollIntoView({behavior:"smooth"});
 }
 
 // === Page nav ===
