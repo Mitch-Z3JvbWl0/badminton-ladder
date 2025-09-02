@@ -69,6 +69,33 @@ h2 {
   padding-bottom: 0.3rem;
   color: #004080;
 }
+/* Ensure inner tables in player stats are responsive */
+.stats-card .table-wrapper {
+  overflow-x: auto;
+  margin-top: 0.5rem;
+}
+
+.stats-card table {
+  min-width: 100%;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+}
+
+.stats-card th,
+.stats-card td {
+  padding: 0.4rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap; /* keep columns compact */
+}
+
+/* Make cards consistent height on grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 1rem;
+  align-items: start;
+}
 
 /* === Tables === */
 table {
