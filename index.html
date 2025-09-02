@@ -4,9 +4,16 @@
   <meta charset="UTF-8">
   <title>FBD Badminton League</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
 
-  <!-- Chart.js for charts -->
+  <!-- Cache-busting to avoid stale loads -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css?v=20240903">
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -22,57 +29,61 @@
     </nav>
   </header>
 
-  <!-- Fixtures -->
-  <section id="fixturesPage" class="nav-page">
-    <h2>Fixtures</h2>
-    <div id="fixturesContainer"></div>
-  </section>
+  <main>
+    <!-- Fixtures -->
+    <section id="fixturesPage" class="nav-page">
+      <h2>Fixtures</h2>
+      <div id="fixturesContainer" class="fixtures-container"></div>
+    </section>
 
-  <!-- Standings -->
-  <section id="standingsPage" class="nav-page" style="display:none;">
-    <h2>Standings (Season <span id="seasonLabel">1</span>)</h2>
-    <table id="standingsTable">
-      <thead>
-        <tr>
-          <th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <div id="podiumContainer" class="podium"></div>
-  </section>
+    <!-- Standings -->
+    <section id="standingsPage" class="nav-page" style="display:none;">
+      <h2>Standings (Season <span id="seasonLabel">1</span>)</h2>
+      <table id="standingsTable" class="league-table">
+        <thead>
+          <tr>
+            <th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="podiumContainer" class="podium"></div>
+    </section>
 
-  <!-- Player Stats -->
-  <section id="statsPage" class="nav-page" style="display:none;">
-    <h2>Player Stats</h2>
-    <div id="playerStats"></div>
-    <canvas id="pointsChart"></canvas>
-    <canvas id="eloChart"></canvas>
-  </section>
+    <!-- Player Stats -->
+    <section id="statsPage" class="nav-page" style="display:none;">
+      <h2>Player Stats</h2>
+      <div id="playerStats" class="stats-grid"></div>
+      <div class="charts">
+        <canvas id="pointsChart"></canvas>
+        <canvas id="eloChart"></canvas>
+      </div>
+    </section>
 
-  <!-- Schedule -->
-  <section id="schedulePage" class="nav-page" style="display:none;">
-    <h2>Upcoming Schedule</h2>
-    <table id="scheduleTable">
-      <thead>
-        <tr><th>Week</th><th>Player A</th><th>Player B</th><th>Court</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
+    <!-- Schedule -->
+    <section id="schedulePage" class="nav-page" style="display:none;">
+      <h2>Upcoming Schedule</h2>
+      <table id="scheduleTable" class="schedule-table">
+        <thead>
+          <tr><th>Week</th><th>Player A</th><th>Player B</th><th>Court</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
 
-  <!-- Profiles -->
-  <section id="profilesPage" class="nav-page" style="display:none;">
-    <h2>Player Profiles</h2>
-    <div id="profilesContainer" class="profiles"></div>
-  </section>
+    <!-- Profiles -->
+    <section id="profilesPage" class="nav-page" style="display:none;">
+      <h2>Player Profiles</h2>
+      <div id="profilesContainer" class="profiles-grid"></div>
+    </section>
+  </main>
 
   <footer>
-    <p>FBD Badminton League • Powered by JavaScript + Chart.js</p>
+    <p>© 2025 FBD Badminton League • Powered by JavaScript + Chart.js</p>
   </footer>
 
-  <!-- Load data & logic -->
-  <script src="data.v2.js"></script>
-  <script src="league.v2.js"></script>
+  <!-- Scripts with cache-busting -->
+  <script src="data.v2.js?v=20240903"></script>
+  <script src="league.v2.js?v=20240903"></script>
 </body>
 </html>
