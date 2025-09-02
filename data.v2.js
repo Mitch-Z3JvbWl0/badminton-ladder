@@ -37,5 +37,6 @@ const playerProfiles = {
   "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Arcsaber 11",image:"images/james.png"},
   "Will": {hand:"Right",height:"1.74m",age:27,racket:"Yonex Nanoflare 700",image:"images/will.png"},
   "Jordan": {hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Halbertec 2000",image:"images/jordan.png"},
-  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Yonex Voltric Z-Force II",image:"images/kepp.png"}
+  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Unknown",image:"images/kepp.png"},
+  "Sam": {hand:"Right",height:"1.80m",age:27,racket:"Unknown",image:"images/sam.png"}
 };
