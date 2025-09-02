@@ -1,56 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="style.css?v=20240903">
+  <meta charset="UTF-8">
+  <title>FBD Badminton League – Player Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<title>FBD Player Profile</title>
-<link rel="icon" href="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f3f8.png" type="image/png">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  body {font-family:'Roboto',Arial,sans-serif;margin:0;background:#f4f6f9;color:#222;}
-  header {background:#002147;color:white;padding:1rem;text-align:center;}
-  header h1 {margin:0;font-family:'Montserrat';}
-  main {max-width:900px;margin:2rem auto;padding:1rem;background:white;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
-  .player-hero {text-align:center;margin-bottom:2rem;}
-  .player-hero img {width:160px;height:160px;object-fit:cover;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,0.2);}
-  .player-hero h2 {margin:0.5rem 0;font-family:'Montserrat';font-weight:700;}
-  .player-info table {width:100%;border-collapse:collapse;margin:1rem 0;}
-  .player-info th,.player-info td {padding:0.5rem;text-align:left;}
-  .player-info th {color:#555;width:120px;}
-  canvas {margin:1rem 0;max-width:100%;}
-  a.back {display:inline-block;margin:1rem 0;color:#004080;text-decoration:none;font-weight:600;}
-</style>
+  <!-- Cache-busting for styles -->
+  <link rel="stylesheet" href="style.css?v=20240903">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<header>
-  <h1>🏸 FBD Badminton League</h1>
-</header>
+  <header>
+    <h1>🏸 FBD Badminton League</h1>
+    <nav>
+      <a href="index.html">🏠 Home</a>
+      <button onclick="toggleDark()">🌙</button>
+    </nav>
+  </header>
 
-<main>
-  <a class="back" href="index.html#profiles">← Back to Profiles</a>
-  <div class="player-hero">
-    <img id="playerImage" src="" alt="Player">
-    <h2 id="playerName"></h2>
-    <p id="playerTag"></p>
-  </div>
+  <main>
+    <section class="profile-page">
+      <div class="profile-header">
+        <img id="playerImage" alt="Player photo">
+        <div class="profile-info">
+          <h2 id="playerName"></h2>
+          <p id="playerTag" class="player-tag"></p>
+          <table id="playerInfoTable" class="info-table"></table>
+        </div>
+      </div>
 
-  <div class="player-info">
-    <h3>Player Information</h3>
-    <table id="playerInfoTable"></table>
-  </div>
+      <div class="player-summary">
+        <p id="playerSummary"></p>
+      </div>
 
-  <div class="player-stats">
-    <h3>Performance Stats</h3>
-    <p id="playerSummary"></p>
-    <canvas id="eloChart"></canvas>
-    <h4>Head-to-Head Record</h4>
-    <div id="headToHead"></div>
-  </div>
-</main>
+      <div class="charts">
+        <canvas id="eloChart"></canvas>
+      </div>
 
-<script src="data.v2.js"></script>
-<script src="player.v2.js"></script>
+      <h3>Head-to-Head Results</h3>
+      <div id="headToHead" class="table-wrapper"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 FBD Badminton League</p>
+  </footer>
+
+  <!-- Data + Logic with cache-busting -->
+  <script src="data.v2.js?v=20240903"></script>
+  <script src="player.v2.js?v=20240903"></script>
 </body>
 </html>
