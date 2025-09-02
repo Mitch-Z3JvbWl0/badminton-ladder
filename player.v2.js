@@ -1,3 +1,5 @@
+const K = 32;  // Elo constant
+
 function getParam(name){
   let params=new URLSearchParams(window.location.search);
   return params.get(name);
@@ -43,7 +45,7 @@ function renderPlayer(name){
       if(won){wins++;h2h[opp].wins++;} else {losses++;h2h[opp].losses++;}
       h2h[opp].played++;h2h[opp].for+=scoreFor;h2h[opp].against+=scoreAgainst;
 
-      // Elo vs generic 1000 baseline for simplicity
+      // Elo vs generic 1000 baseline
       let Ra=eloNow, Rb=1000;
       let Ea=1/(1+10**((Rb-Ra)/400));
       let Sa=won?1:0;
@@ -71,13 +73,18 @@ function renderPlayer(name){
   // H2H
   let div=document.getElementById("headToHead");
   let h2hHtml="<table><tr><th>Opponent</th><th>Played</th><th>W</th><th>L</th><th>For</th><th>Against</th><th>MMR ±</th></tr>";
-  Object.entries(h2h).forEach(([opp,stats])=>{
-    let mmr=(stats.mmr||0).toFixed(1);
-    h2hHtml+=`<tr>
-      <td>${opp}</td><td>${stats.played}</td><td>${stats.wins}</td><td>${stats.losses}</td>
-      <td>${stats.for}</td><td>${stats.against}</td><td>${mmr}</td>
-    </tr>`;
-  });
+
+  if(Object.keys(h2h).length===0){
+    h2hHtml+=`<tr><td colspan="7">No matches yet</td></tr>`;
+  } else {
+    Object.entries(h2h).forEach(([opp,stats])=>{
+      let mmr=(stats.mmr||0).toFixed(1);
+      h2hHtml+=`<tr>
+        <td>${opp}</td><td>${stats.played}</td><td>${stats.wins}</td><td>${stats.losses}</td>
+        <td>${stats.for}</td><td>${stats.against}</td><td>${mmr}</td>
+      </tr>`;
+    });
+  }
   h2hHtml+="</table>";
   div.innerHTML=h2hHtml;
 }
