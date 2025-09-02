@@ -14,12 +14,15 @@ function buildLeague(fixtures){
 
   fixtures.forEach((m)=>{
     let A=ensurePlayer(m.A), B=ensurePlayer(m.B);
-    if(!A.h2h[B.name]) A.h2h[B.name]={played:0,wins:0,losses:0,for:0,against:0};
-    if(!B.h2h[A.name]) B.h2h[A.name]={played:0,wins:0,losses:0,for:0,against:0};
+    if(!A.h2h[B.name]) A.h2h[B.name]={played:0,wins:0,losses:0,for:0,against:0,mmr:0};
+    if(!B.h2h[A.name]) B.h2h[A.name]={played:0,wins:0,losses:0,for:0,against:0,mmr:0};
     
     let Ea=1/(1+10**((B.rating-A.rating)/400));
     let Sa=(m.Winner===m.A)?1:0; 
     let Sb=1-Sa;
+
+    let changeA = K*(Sa-Ea);
+    let changeB = -changeA;
 
     if(Sa){
       A.wins++;B.losses++;
@@ -37,11 +40,25 @@ function buildLeague(fixtures){
     A.h2h[B.name].for+=m.Ascore;A.h2h[B.name].against+=m.Bscore;
     B.h2h[A.name].for+=m.Bscore;B.h2h[A.name].against+=m.Ascore;
 
-    A.rating=A.rating+K*(Sa-Ea);
-    B.rating=B.rating+K*(Sb-(1-Ea));
+    // Track MMR change vs opponent
+    A.h2h[B.name].mmr += changeA;
+    B.h2h[A.name].mmr += changeB;
+
+    A.rating+=changeA;
+    B.rating+=changeB;
 
     A.eloHistory.push(A.rating);
     B.eloHistory.push(B.rating);
+  });
+
+  // Ensure every player in profiles exists, even if no matches
+  Object.keys(playerProfiles).forEach(name=>{
+    if(!players[name]){
+      players[name] = {
+        name, rating: initial, played: 0, wins: 0, losses: 0,
+        points: 0, for: 0, against: 0, h2h: {}, eloHistory:[initial]
+      };
+    }
   });
 
   return players;
@@ -112,11 +129,12 @@ function renderAll(){
     let avgMargin=(p.played?(p.for-p.against)/p.played:0).toFixed(1);
     let card=document.createElement("div"); 
     card.className="stats-card";
-    let h2h="<div class='table-wrapper'><table><tr><th>Opponent</th><th>Played</th><th>W</th><th>L</th><th>For</th><th>Against</th><th>Margin</th></tr>";
+    let h2h="<div class='table-wrapper'><table><tr><th>Opponent</th><th>Played</th><th>W</th><th>L</th><th>For</th><th>Against</th><th>Margin</th><th>MMR ±</th></tr>";
     Object.entries(p.h2h).forEach(([o,h])=>{
       let margin=((h.for-h.against)/(h.played||1)).toFixed(1);
+      let mmr = (h.mmr||0).toFixed(1);
       h2h+=`<tr><td>${o}</td><td>${h.played}</td><td>${h.wins}</td><td>${h.losses}</td>
-             <td>${h.for}</td><td>${h.against}</td><td>${margin}</td></tr>`;
+             <td>${h.for}</td><td>${h.against}</td><td>${margin}</td><td>${mmr}</td></tr>`;
     });
     h2h+="</table></div>";
     card.innerHTML=`<h3>${p.name}</h3>
@@ -157,7 +175,7 @@ function renderAll(){
   // === Schedule (auto round robin) ===
   let schedBody=document.querySelector("#scheduleTable tbody"); 
   schedBody.innerHTML="";
-  const names=standings.map(p=>p.name); 
+  const names=Object.keys(playerProfiles); 
   if(names.length%2===1) names.push("BYE");
   const n=names.length; 
   let arr=names.slice();
