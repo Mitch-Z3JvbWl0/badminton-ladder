@@ -1,175 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8">
+  <title>FBD Badminton League</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 
-<meta charset="UTF-8">
-<title>FBD Badminton League</title>
-<link rel="icon" href="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f3f8.png" type="image/png">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --league-blue:#002147;
-    --league-navy:#004080;
-    --league-hover:#003060;
-    --league-green:#1db954;
-    --bg-light:#f4f6f9;
-    --text-dark:#222;
-  }
-  body {
-    font-family:'Roboto','Segoe UI',Arial,sans-serif;
-    margin:0;background:var(--bg-light);color:var(--text-dark);line-height:1.5;
-    transition:background 0.3s,color 0.3s;
-  }
-  body.dark {background:#121212;color:#eee;}
-  header {
-    background:var(--league-blue);color:white;padding:2rem 1rem;text-align:center;
-    margin-bottom:0;position:relative;
-  }
-  header h1 {margin:0;font-size:2.5rem;font-weight:700;font-family:'Montserrat';letter-spacing:0.5px;}
-  header p {margin:0.5rem 0 0;font-weight:300;font-size:1rem;}
-  nav {
-    background:var(--league-navy);display:flex;justify-content:center;flex-wrap:wrap;
-    position:sticky;top:0;z-index:1000;
-  }
-  nav a {
-    color:white;text-decoration:none;padding:0.8rem 1.2rem;display:block;
-    font-weight:500;letter-spacing:0.3px;transition:background 0.2s;
-  }
-  nav a:hover {background:var(--league-hover);}
-  .active {background:var(--league-blue);}
-  .dark-toggle {
-    position:absolute;top:10px;right:10px;background:white;color:var(--league-navy);
-    border:none;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.8rem;
-  }
-  .hero {
-    background:url('https://source.unsplash.com/featured/?badminton,court') center/cover;
-    padding:3rem;color:white;text-shadow:1px 1px 4px rgba(0,0,0,0.8);text-align:center;
-  }
-  .hero h2 {margin:0;font-size:2rem;font-weight:700;font-family:'Montserrat';}
-  main {max-width:1200px;margin:0 auto;padding:1rem;}
-  h2 {
-    color:var(--league-navy);border-bottom:2px solid #eee;padding-bottom:0.5rem;
-    font-family:'Montserrat';font-weight:600;font-size:1.4rem;margin-top:1rem;
-  }
-  h3 {font-family:'Montserrat';font-weight:600;color:var(--league-navy);}
-  .table-wrapper {overflow-x:auto;}
-  table {width:100%;border-collapse:collapse;margin:1.5rem 0;min-width:600px;font-size:0.95rem;}
-  th,td {padding:0.6rem 0.8rem;border:1px solid #ccc;text-align:center;}
-  th {
-    background:var(--league-navy);color:white;font-weight:600;text-transform:uppercase;
-    font-size:0.8rem;letter-spacing:0.5px;
-  }
-  .fixtures th {background:#555;}
-  .winner {font-weight:600;color:var(--league-green);}
-  .nav-page {display:none;}
-  .stats-card {
-    border-radius:8px;background:white;box-shadow:0 4px 8px rgba(0,0,0,0.1);
-    padding:1rem;margin:1rem 0;transition:transform 0.2s;
-  }
-  .stats-card:hover {transform:translateY(-4px);}
-  .podium {display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1rem 0;}
-  .podium-card {
-    flex:1 1 200px;max-width:220px;background:white;border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);text-align:center;padding:1rem;
-  }
-  .podium-card img {width:100px;height:100px;border-radius:50%;object-fit:cover;}
-  .podium-card h3 {margin:0.5rem 0;}
-  .profile-grid {display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;}
-  .profile-card {
-    flex:0 1 240px;box-shadow:0 4px 8px rgba(0,0,0,0.1);border-radius:10px;background:white;
-    padding:1rem;text-align:center;transition:transform 0.2s;
-  }
-  .profile-card:hover {transform:translateY(-4px);}
-  .profile-card img {width:140px;height:140px;object-fit:cover;border-radius:50%;margin-bottom:0.8rem;}
-  .profile-card h3 {margin:0.3rem 0;font-size:1.1rem;font-weight:700;}
-  .profile-card table {width:100%;border:none;font-size:0.9rem;}
-  .profile-card th {background:none;color:#666;text-align:left;font-weight:500;border:none;padding:0.3rem 0.5rem;}
-  .profile-card td {text-align:right;border:none;padding:0.3rem 0.5rem;font-weight:500;}
-  footer {text-align:center;padding:1rem;font-size:0.85em;color:#555;margin-top:2rem;font-weight:400;}
-  details summary {cursor:pointer;font-weight:600;padding:0.5rem;background:#eee;margin:0.5rem 0;border-radius:4px;}
-  @media (max-width:768px){
-    table, thead, tbody, th, td, tr {display:block;}
-    th {position:absolute;top:-9999px;left:-9999px;}
-    tr {margin:0 0 1rem 0;border:1px solid #ccc;background:#fff;padding:0.5rem;border-radius:4px;}
-    td {border:none;text-align:left;padding:0.25rem;}
-    td:before {font-weight:bold;display:inline-block;width:120px;}
-  }
-</style>
+  <!-- Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
     <h1>🏸 FBD Badminton League</h1>
-    <p>Friendly. Competitive. Data-Driven.</p>
-    <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+    <nav>
+      <a href="#" onclick="showPage('fixturesPage',this)" class="active">Fixtures</a>
+      <a href="#" onclick="showPage('standingsPage',this)">Standings</a>
+      <a href="#" onclick="showPage('statsPage',this)">Player Stats</a>
+      <a href="#" onclick="showPage('schedulePage',this)">Schedule</a>
+      <a href="#" onclick="showPage('profilesPage',this)">Profiles</a>
+      <button onclick="toggleDark()">🌙</button>
+    </nav>
   </header>
-  <div class="hero">
-    <h2>Season <span id="seasonLabel">1</span></h2>
-  </div>
-  <nav>
-    <a href="#" class="active" onclick="showPage('home',this)">Fixtures</a>
-    <a href="#" onclick="showPage('standings',this)">Standings</a>
-    <a href="#" onclick="showPage('players',this)">Player Stats</a>
-    <a href="#" onclick="showPage('charts',this)">Charts</a>
-    <a href="#" onclick="showPage('schedule',this)">Schedule</a>
-    <a href="#" onclick="showPage('profiles',this)">Player Profiles</a>
-    <select id="seasonSelect" onchange="changeSeason(this.value)" style="margin-left:1rem;">
-      <option value="1">Season 1</option>
-      <option value="2">Season 2</option>
-    </select>
-  </nav>
 
-  <main>
-    <section id="home" class="nav-page" style="display:block">
-      <h2>Fixtures & Results</h2>
-      <div id="fixturesContainer"></div>
-    </section>
-    <section id="standings" class="nav-page">
-      <h2>League Standings</h2>
-      <div class="podium" id="podiumContainer"></div>
-      <div class="table-wrapper">
-        <table id="standingsTable">
-          <thead><tr><th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-    <section id="players" class="nav-page">
-      <h2>Player Statistics</h2>
-      <div id="playerStats"></div>
-    </section>
-    <section id="charts" class="nav-page">
-      <h2>League Charts</h2>
-      <canvas id="pointsChart"></canvas><br>
-      <canvas id="eloChart"></canvas>
-    </section>
-    <section id="schedule" class="nav-page">
-      <h2>Round Robin Schedule</h2>
-      <div class="table-wrapper">
-        <table id="scheduleTable">
-          <thead><tr><th>Week</th><th>Player A</th><th>Player B</th><th>Court</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-    <section id="profiles" class="nav-page">
-      <h2>Player Profiles</h2>
-      <div class="profile-grid" id="profilesContainer"></div>
-    </section>
-  </main>
+  <!-- Fixtures -->
+  <section id="fixturesPage" class="nav-page">
+    <h2>Fixtures</h2>
+    <div id="fixturesContainer"></div>
+  </section>
 
-  <footer>© 2025 FBD Badminton League • Powered by Elo & Charts</footer>
+  <!-- Standings -->
+  <section id="standingsPage" class="nav-page" style="display:none;">
+    <h2>Standings (Season <span id="seasonLabel">1</span>)</h2>
+    <table id="standingsTable">
+      <thead>
+        <tr>
+          <th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="podiumContainer" class="podium"></div>
+  </section>
 
-<script src="data.v2.js"></script>
-<script src="league.v2.js"></script>
+  <!-- Player Stats -->
+  <section id="statsPage" class="nav-page" style="display:none;">
+    <h2>Player Stats</h2>
+    <div id="playerStats"></div>
+    <canvas id="pointsChart"></canvas>
+    <canvas id="eloChart"></canvas>
+  </section>
 
+  <!-- Schedule -->
+  <section id="schedulePage" class="nav-page" style="display:none;">
+    <h2>Upcoming Schedule</h2>
+    <table id="scheduleTable">
+      <thead>
+        <tr><th>Week</th><th>Player A</th><th>Player B</th><th>Court</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
+  <!-- Profiles -->
+  <section id="profilesPage" class="nav-page" style="display:none;">
+    <h2>Player Profiles</h2>
+    <div id="profilesContainer" class="profiles"></div>
+  </section>
+
+  <footer>
+    <p>FBD Badminton League • Powered by JavaScript + Chart.js</p>
+  </footer>
+
+  <!-- Load data & logic -->
+  <script src="data.v2.js"></script>
+  <script src="league.v2.js"></script>
 </body>
 </html>
-
-
-
- 
