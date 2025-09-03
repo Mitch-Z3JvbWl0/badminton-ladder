@@ -24,13 +24,11 @@ function buildLeague(fixtures){
     let changeA = K*(Sa-Ea);
     let changeB = -changeA;
 
-    // Save MMR gain/loss into the match object
+    // Save only winner's MMR gain
     if (Sa === 1) {
       m.mmrGain = changeA.toFixed(1);
-      m.mmrLoss = changeB.toFixed(1);
     } else {
       m.mmrGain = changeB.toFixed(1);
-      m.mmrLoss = changeA.toFixed(1);
     }
 
     if(Sa){
@@ -90,7 +88,7 @@ function renderAll(){
   const fDiv=document.getElementById("fixturesContainer"); 
   fDiv.innerHTML="";
   const weeks=[...new Set(fixtures.map(f=>f.Week))];
-  weeks.forEach(week=>{
+  weeks.forEach((week,wi)=>{
     let details=document.createElement("details");
     details.open=true;
     let summary=document.createElement("summary");
@@ -99,18 +97,64 @@ function renderAll(){
 
     let tbl=document.createElement("table");
     tbl.classList.add("fixtures");
-    tbl.innerHTML="<thead><tr><th>ID</th><th>Player A</th><th>Score</th><th>Player B</th><th>Score</th><th>Winner</th><th>MMR +</th><th>MMR –</th></tr></thead>";
+    tbl.innerHTML="<thead><tr><th>ID</th><th>Player A</th><th>Score</th><th>Player B</th><th>Score</th><th>Winner</th><th>MMR +</th></tr></thead>";
     let tb=document.createElement("tbody");
-    fixtures.filter(f=>f.Week===week).forEach((m,i)=>{
+
+    let weekMatches = fixtures.filter(f=>f.Week===week);
+    let mmrByPlayer = {};
+    let bestMatch = null;
+
+    weekMatches.forEach((m,i)=>{
       let tr=document.createElement("tr");
       tr.innerHTML=`<td>${i+1}</td><td>${m.A}</td><td>${m.Ascore}</td>
                     <td>${m.B}</td><td>${m.Bscore}</td><td class="winner">${m.Winner}</td>
-                    <td style="color:green;">+${m.mmrGain || "0"}</td>
-                    <td style="color:red;">${m.mmrLoss || "0"}</td>`;
+                    <td style="color:green;">+${m.mmrGain || "0"}</td>`;
       tb.appendChild(tr);
+
+      // Track MMR per player
+      if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
+      if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
+      if(m.Winner===m.A) mmrByPlayer[m.A]+=parseFloat(m.mmrGain||0);
+      else mmrByPlayer[m.B]+=parseFloat(m.mmrGain||0);
+
+      // Track biggest MMR gain match of this week
+      if(!bestMatch || parseFloat(m.mmrGain)>parseFloat(bestMatch.mmrGain)){
+        bestMatch=m;
+      }
     });
+
     tbl.appendChild(tb); 
     details.appendChild(tbl); 
+
+    // === Weekly MMR Change Chart ===
+    let chartCanvas=document.createElement("canvas");
+    chartCanvas.id=`mmrChartWeek${wi}`;
+    details.appendChild(chartCanvas);
+
+    new Chart(chartCanvas.getContext("2d"),{
+      type:'bar',
+      data:{
+        labels:Object.keys(mmrByPlayer),
+        datasets:[{
+          label:"MMR Change",
+          data:Object.values(mmrByPlayer),
+          backgroundColor:Object.values(mmrByPlayer).map(v=>v>=0?"green":"red")
+        }]
+      },
+      options:{plugins:{legend:{display:false}}}
+    });
+
+    // === Match of the Week ===
+    if(bestMatch){
+      let motw=document.createElement("div");
+      motw.className="motw-card";
+      motw.innerHTML=`<h4>🏆 Match of the Week</h4>
+        <p><b>${bestMatch.Winner}</b> def. ${bestMatch.Winner===bestMatch.A?bestMatch.B:bestMatch.A} 
+        (${bestMatch.Ascore}–${bestMatch.Bscore}) 
+        <span style="color:green;">+${bestMatch.mmrGain} MMR</span></p>`;
+      details.appendChild(motw);
+    }
+
     fDiv.appendChild(details);
   });
 
