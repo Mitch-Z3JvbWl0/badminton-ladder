@@ -24,6 +24,15 @@ function buildLeague(fixtures){
     let changeA = K*(Sa-Ea);
     let changeB = -changeA;
 
+    // Save MMR gain/loss into the match object
+    if (Sa === 1) {
+      m.mmrGain = changeA.toFixed(1);
+      m.mmrLoss = changeB.toFixed(1);
+    } else {
+      m.mmrGain = changeB.toFixed(1);
+      m.mmrLoss = changeA.toFixed(1);
+    }
+
     if(Sa){
       A.wins++;B.losses++;
       A.h2h[B.name].wins++;B.h2h[A.name].losses++;
@@ -72,7 +81,6 @@ function renderAll(){
   window.leagueResults = players;
 
   const standings = Object.values(players).sort((a,b)=>{
-    // Sort by points first, then Elo
     if(a.played===0 && b.played>0) return 1;
     if(b.played===0 && a.played>0) return -1;
     return b.points-a.points||b.rating-a.rating;
@@ -91,12 +99,14 @@ function renderAll(){
 
     let tbl=document.createElement("table");
     tbl.classList.add("fixtures");
-    tbl.innerHTML="<thead><tr><th>ID</th><th>Player A</th><th>Score</th><th>Player B</th><th>Score</th><th>Winner</th></tr></thead>";
+    tbl.innerHTML="<thead><tr><th>ID</th><th>Player A</th><th>Score</th><th>Player B</th><th>Score</th><th>Winner</th><th>MMR +</th><th>MMR –</th></tr></thead>";
     let tb=document.createElement("tbody");
     fixtures.filter(f=>f.Week===week).forEach((m,i)=>{
       let tr=document.createElement("tr");
       tr.innerHTML=`<td>${i+1}</td><td>${m.A}</td><td>${m.Ascore}</td>
-                    <td>${m.B}</td><td>${m.Bscore}</td><td class="winner">${m.Winner}</td>`;
+                    <td>${m.B}</td><td>${m.Bscore}</td><td class="winner">${m.Winner}</td>
+                    <td style="color:green;">+${m.mmrGain || "0"}</td>
+                    <td style="color:red;">${m.mmrLoss || "0"}</td>`;
       tb.appendChild(tr);
     });
     tbl.appendChild(tb); 
