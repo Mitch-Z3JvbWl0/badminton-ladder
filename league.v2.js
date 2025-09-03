@@ -364,6 +364,55 @@ function changeSeason(val){
   document.getElementById("seasonLabel").textContent=val;
   renderAll();
 }
+// === News Feed ===
+function buildNews(fixtures, standings) {
+  let news = [];
+
+  // Latest week
+  const lastWeek = [...new Set(fixtures.map(f=>f.Week))].pop();
+  const matches = fixtures.filter(f=>f.Week === lastWeek);
+
+  if(matches.length){
+    // Biggest MMR gain
+    let topMatch = matches.reduce((a,b)=> parseFloat(a.mmrGain) > parseFloat(b.mmrGain) ? a : b);
+    news.push(`<strong>${renderName(topMatch.Winner)}</strong> earned the biggest MMR gain (+${topMatch.mmrGain}) beating ${renderName(topMatch.Winner === topMatch.A ? topMatch.B : topMatch.A)} in ${lastWeek}.`);
+
+    // Closest match
+    let closeMatch = matches.reduce((a,b)=>{
+      let diffA=Math.abs(a.Ascore-a.Bscore), diffB=Math.abs(b.Ascore-b.Bscore);
+      return diffA < diffB ? a : b;
+    });
+    news.push(`The closest battle was <strong>${renderName(closeMatch.A)}</strong> vs <strong>${renderName(closeMatch.B)}</strong>, ending ${closeMatch.Ascore}–${closeMatch.Bscore}.`);
+  }
+
+  // Injury updates
+  Object.entries(playerProfiles).forEach(([name,prof])=>{
+    if(prof.status === "injured"){
+      news.push(`${renderName(name)} is currently sidelined with an injury 🩼.`);
+    }
+  });
+
+  // New players
+  standings.forEach(p=>{
+    if(p.played === 0){
+      news.push(`${renderName(p.name)} has joined the league and awaits their debut!`);
+    }
+  });
+
+  return news;
+}
+
+const newsItems = buildNews(fixtures, standings);
+let nc = document.getElementById("newsContainer");
+if(nc){
+  nc.innerHTML = "";
+  newsItems.forEach(n=>{
+    let card=document.createElement("div");
+    card.className="news-card";
+    card.innerHTML=`<p>${n}</p>`;
+    nc.appendChild(card);
+  });
+}
 
 // === Page nav ===
 function showPage(id,link){
