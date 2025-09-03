@@ -1,6 +1,16 @@
 const K = 32, initial = 1000;
 let currentSeason = "1";
 
+// === Chart color palette (dark sports theme) ===
+const chartColors = [
+  "#2196f3", // blue
+  "#ffd600", // gold
+  "#00c853", // green
+  "#e53935", // red
+  "#ff9800", // orange
+  "#9c27b0"  // purple
+];
+
 // === League Builder (Elo system) ===
 function buildLeague(fixtures){
   const players = {};
@@ -142,7 +152,7 @@ function renderAll(){
       .sort((a,b)=>b[1]-a[1])
       .forEach(([name,val])=>{
         let tr=document.createElement("tr");
-        let color=val>=0?"green":"red";
+        let color=val>=0?"#00c853":"#e53935";
         tr.innerHTML=`<td>${name}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
         tBody.appendChild(tr);
       });
@@ -161,7 +171,7 @@ function renderAll(){
       motw.innerHTML=`<h4>🏆 Match of the Week</h4>
         <p><b>${bestMatch.Winner}</b> def. ${bestMatch.Winner===bestMatch.A?bestMatch.B:bestMatch.A} 
         (${bestMatch.Ascore}–${bestMatch.Bscore}) 
-        <span style="color:green;">+${bestMatch.mmrGain} MMR</span></p>`;
+        <span style="color:#ffd600;">+${bestMatch.mmrGain} MMR</span></p>`;
       details.appendChild(motw);
     }
 
@@ -224,40 +234,51 @@ function renderAll(){
   });
 
   // === Charts (Points + Elo over season) ===
-new Chart(ctx1,{
-  type:'bar',
-  data:{
-    labels:standings.map(p=>p.name),
-    datasets:[{
-      label:'Points',
-      data:standings.map(p=>p.points),
-      backgroundColor:'#2196f3'
-    }]
-  },
-  options:{
-    responsive:true,
-    plugins:{legend:{display:false}},
-    scales:{
-      x:{ticks:{color:'#ccc'},grid:{color:'#333'}},
-      y:{ticks:{color:'#ccc'},grid:{color:'#333'}}
+  let ctx1=document.getElementById("pointsChart").getContext("2d");
+  new Chart(ctx1,{
+    type:'bar',
+    data:{
+      labels:standings.map(p=>p.name),
+      datasets:[{
+        label:'Points',
+        data:standings.map(p=>p.points),
+        backgroundColor:'#2196f3'
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{color:'#ccc'},grid:{color:'#333'}},
+        y:{ticks:{color:'#ccc'},grid:{color:'#333'}}
+      }
     }
-  }
-});
-
+  });
 
   let ctx2=document.getElementById("eloChart").getContext("2d");
   new Chart(ctx2,{
     type:'line',
     data:{
       labels:fixtures.map((_,i)=>i+1),
-      datasets:standings.map(p=>({
+      datasets:standings.map((p,i)=>({
         label:p.name,
         data:p.eloHistory,
         borderWidth:2,
-        fill:false
+        fill:false,
+        borderColor: chartColors[i % chartColors.length],
+        backgroundColor: chartColors[i % chartColors.length],
+        tension:0.3
       }))
     },
-    options:{responsive:true,interaction:{mode:'index'}}
+    options:{
+      responsive:true,
+      interaction:{mode:'index'},
+      plugins:{legend:{labels:{color:'#ccc'}}},
+      scales:{
+        x:{ticks:{color:'#ccc'},grid:{color:'#333'}},
+        y:{ticks:{color:'#ccc'},grid:{color:'#333'}}
+      }
+    }
   });
 
   // === Schedule (auto round robin) ===
