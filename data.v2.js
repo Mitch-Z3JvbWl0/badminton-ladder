@@ -1,6 +1,6 @@
 // Seasoned fixtures
 const fixturesBySeason = {
-  1: [
+  "1": [
     {A:"Will",B:"Luke",Ascore:14,Bscore:16,Winner:"Luke",Week:"Week 1"},
     {A:"James",B:"Mitch",Ascore:6,Bscore:11,Winner:"Mitch",Week:"Week 1"},
     {A:"Jordan",B:"Will",Ascore:11,Bscore:5,Winner:"Jordan",Week:"Week 1"},
@@ -27,7 +27,7 @@ const fixturesBySeason = {
     {A:"Kepp",B:"Mitch",Ascore:15,Bscore:21,Winner:"Mitch",Week:"Week 2"},
     {A:"Will",B:"Luke",Ascore:18,Bscore:21,Winner:"Luke",Week:"Week 2"}
   ],
-  2: [] // future
+  "2": [] // future
 };
 
 // Player profiles
