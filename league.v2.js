@@ -82,6 +82,11 @@ function buildLeague(fixtures){
 
 // === Render All Pages ===
 function renderAll(){
+  if(!window.playerProfiles || !window.fixturesBySeason){
+    console.warn("Data not loaded yet.");
+    return;
+  }
+
   const fixtures = fixturesBySeason[currentSeason];
   const players = buildLeague(fixtures);
 
@@ -98,7 +103,7 @@ function renderAll(){
   const fDiv=document.getElementById("fixturesContainer"); 
   fDiv.innerHTML="";
   const weeks=[...new Set(fixtures.map(f=>f.Week))];
-  weeks.forEach((week,wi)=>{
+  weeks.forEach((week)=>{
     let details=document.createElement("details");
     details.open=true;
     let summary=document.createElement("summary");
@@ -182,10 +187,12 @@ function renderAll(){
   let sBody=document.querySelector("#standingsTable tbody"); 
   sBody.innerHTML="";
   standings.forEach((p,i)=>{
+    let status = playerProfiles[p.name].status || "active";
+    let badge = `<span class="status-badge status-${status}">${status}</span>`;
     let tr=document.createElement("tr");
     let medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
     tr.innerHTML=`<td>${i+1}</td>
-                  <td><a href="player.html?name=${p.name}">${medal} ${p.name}</a></td>
+                  <td><a href="player.html?name=${p.name}">${medal} ${p.name}</a> ${badge}</td>
                   <td>${p.played}</td><td>${p.wins}</td><td>${p.losses}</td>
                   <td>${p.points}</td><td>${p.rating.toFixed(1)}</td>`;
     sBody.appendChild(tr);
@@ -196,11 +203,13 @@ function renderAll(){
   podium.innerHTML="";
   standings.slice(0,3).forEach((p)=>{
     let prof=playerProfiles[p.name];
+    let status = prof.status || "active";
     let card=document.createElement("div"); 
     card.className="podium-card";
     card.innerHTML=`<img src="${prof.image}" alt="${p.name}">
                     <h3>${p.name}</h3>
-                    <p><b>${p.points}</b> pts • Elo ${p.rating.toFixed(0)}</p>`;
+                    <p><b>${p.points}</b> pts • Elo ${p.rating.toFixed(0)}</p>
+                    <span class="status-badge status-${status}">${status}</span>`;
     podium.appendChild(card);
   });
 
@@ -284,7 +293,7 @@ function renderAll(){
   // === Schedule (auto round robin) ===
   let schedBody=document.querySelector("#scheduleTable tbody"); 
   schedBody.innerHTML="";
-  const names=Object.keys(playerProfiles); 
+  const names=Object.keys(playerProfiles).filter(n => playerProfiles[n].status!=="injured");
   if(names.length%2===1) names.push("BYE");
   const n=names.length; 
   let arr=names.slice();
@@ -306,11 +315,13 @@ function renderAll(){
   let pDiv=document.getElementById("profilesContainer"); 
   pDiv.innerHTML="";
   Object.entries(playerProfiles).forEach(([name,prof])=>{
+    let status = prof.status || "active";
     let card=document.createElement("div"); 
     card.className="profile-card";
     card.innerHTML=`
       <img src="${prof.image}" alt="${name}">
       <h3 id="profile-${name}"><a href="player.html?name=${name}">${name}</a></h3>
+      <span class="status-badge status-${status}">${status}</span>
       <table>
         <tr><th>Hand</th><td>${prof.hand}</td></tr>
         <tr><th>Height</th><td>${prof.height}</td></tr>
