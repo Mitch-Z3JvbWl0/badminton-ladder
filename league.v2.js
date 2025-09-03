@@ -27,8 +27,10 @@ function buildLeague(fixtures){
     // Save only winner's MMR gain
     if (Sa === 1) {
       m.mmrGain = changeA.toFixed(1);
+      m.mmrLoss = changeB.toFixed(1);
     } else {
       m.mmrGain = changeB.toFixed(1);
+      m.mmrLoss = changeA.toFixed(1);
     }
 
     if(Sa){
@@ -114,6 +116,8 @@ function renderAll(){
       // Track MMR per player
       if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
       if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
+      mmrByPlayer[m.A]+=parseFloat(m.mmrLoss||0); // loser loses negative
+      mmrByPlayer[m.B]+=parseFloat(m.mmrLoss||0);
       if(m.Winner===m.A) mmrByPlayer[m.A]+=parseFloat(m.mmrGain||0);
       else mmrByPlayer[m.B]+=parseFloat(m.mmrGain||0);
 
@@ -126,23 +130,19 @@ function renderAll(){
     tbl.appendChild(tb); 
     details.appendChild(tbl); 
 
-    // === Weekly MMR Change Chart ===
-    let chartCanvas=document.createElement("canvas");
-    chartCanvas.id=`mmrChartWeek${wi}`;
-    details.appendChild(chartCanvas);
-
-    new Chart(chartCanvas.getContext("2d"),{
-      type:'bar',
-      data:{
-        labels:Object.keys(mmrByPlayer),
-        datasets:[{
-          label:"MMR Change",
-          data:Object.values(mmrByPlayer),
-          backgroundColor:Object.values(mmrByPlayer).map(v=>v>=0?"green":"red")
-        }]
-      },
-      options:{plugins:{legend:{display:false}}}
+    // === Weekly MMR Totals Table ===
+    let totals=document.createElement("table");
+    totals.classList.add("fixtures");
+    totals.innerHTML="<thead><tr><th>Player</th><th>Net MMR ±</th></tr></thead>";
+    let tBody=document.createElement("tbody");
+    Object.entries(mmrByPlayer).forEach(([name,val])=>{
+      let tr=document.createElement("tr");
+      let color=val>=0?"green":"red";
+      tr.innerHTML=`<td>${name}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
+      tBody.appendChild(tr);
     });
+    totals.appendChild(tBody);
+    details.appendChild(totals);
 
     // === Match of the Week ===
     if(bestMatch){
@@ -213,7 +213,7 @@ function renderAll(){
     statsDiv.appendChild(card);
   });
 
-  // === Charts ===
+  // === Charts (Points + Elo over season) ===
   let ctx1=document.getElementById("pointsChart").getContext("2d");
   new Chart(ctx1,{
     type:'bar',
