@@ -1,5 +1,5 @@
 // Seasoned fixtures
-const fixturesBySeason = {
+window.fixturesBySeason = {
   "1": [
     {A:"Will",B:"Luke",Ascore:14,Bscore:16,Winner:"Luke",Week:"Week 1"},
     {A:"James",B:"Mitch",Ascore:6,Bscore:11,Winner:"Mitch",Week:"Week 1"},
@@ -31,12 +31,55 @@ const fixturesBySeason = {
 };
 
 // Player profiles
-const playerProfiles = {
-  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"images/mitch.png",status:"injured"},
-  "Luke": {hand:"Left",height:"1.749m",age:29,racket:"Yonex Nanoflare 001",image:"images/luke.png"},
-  "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Arcsaber 11",image:"images/james.png"},
-  "Will": {hand:"Right",height:"1.74m",age:27,racket:"Yonex Nanoflare 700",image:"images/will.png"},
-  "Jordan": {hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Halbertec 2000",image:"images/jordan.png"},
-  "Kepp": {hand:"Right",height:"1.87m",age:27,racket:"Unknown",image:"images/kepp.png"},
-  "Sam": {hand:"Right",height:"1.80m",age:27,racket:"Unknown",image:"images/sam.png"}
+window.playerProfiles = {
+  "Mitch": {
+    hand:"Right",
+    height:"1.75m",
+    age:32,
+    racket:"Yonex Astrox 88D",
+    image:"images/mitch.png",
+    status:"injured"
+  },
+  "Luke": {
+    hand:"Left",
+    height:"1.749m",
+    age:29,
+    racket:"Yonex Nanoflare 001",
+    image:"images/luke.png"
+  },
+  "James": {
+    hand:"Right",
+    height:"1.79m",
+    age:27,
+    racket:"Yonex Arcsaber 11",
+    image:"images/james.png"
+  },
+  "Will": {
+    hand:"Right",
+    height:"1.74m",
+    age:27,
+    racket:"Yonex Nanoflare 700",
+    image:"images/will.png"
+  },
+  "Jordan": {
+    hand:"Right",
+    height:"1.82m",
+    age:29,
+    racket:"Li-Ning Halbertec 2000",
+    image:"images/jordan.png"
+  },
+  "Kepp": {
+    hand:"Right",
+    height:"1.87m",
+    age:27,
+    racket:"Unknown",
+    image:"images/kepp.png"
+  },
+  "Sam": {
+    hand:"Right",
+    height:"1.80m",
+    age:27,
+    racket:"Unknown",
+    image:"images/sam.png"
+  }
 };
