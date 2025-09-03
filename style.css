@@ -118,6 +118,8 @@ tr:hover {
   height: 80px;
   object-fit: cover;
   border-radius: 50%;
+  border: 2px solid #004080;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-bottom: 0.5rem;
 }
 
@@ -154,10 +156,10 @@ tr:hover {
   white-space: nowrap;
 }
 
-/* === Profiles === */
+/* === Profiles Grid (League Page) === */
 .profiles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
@@ -170,21 +172,6 @@ tr:hover {
 }
 
 .profile-card img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 0.5rem;
-}
-
-.profile-card h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-  color: #004080;
-}
-
-/* === Player Profile Cards (BWF Style) === */
-.profile-card img {
   width: 180px;
   height: 180px;
   object-fit: cover;
@@ -194,6 +181,47 @@ tr:hover {
   margin-bottom: 0.5rem;
 }
 
+.profile-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #004080;
+}
+
+/* === Player Profile Page (player.html) === */
+.profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-header img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #004080;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.player-tag {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.info-table {
+  width: auto;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
 
 /* === Charts === */
 .charts {
@@ -239,6 +267,7 @@ body.dark table,
 body.dark .podium-card,
 body.dark .stats-card,
 body.dark .profile-card,
+body.dark .profile-header img,
 body.dark canvas {
   background: #2a2a2a;
   color: #ddd;
