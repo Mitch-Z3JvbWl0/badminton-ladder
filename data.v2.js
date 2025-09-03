@@ -32,7 +32,7 @@ const fixturesBySeason = {
 
 // Player profiles
 const playerProfiles = {
-  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"images/mitch.png"},
+  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"images/mitch.png",status:"injured"},
   "Luke": {hand:"Left",height:"1.749m",age:29,racket:"Yonex Nanoflare 001",image:"images/luke.png"},
   "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Arcsaber 11",image:"images/james.png"},
   "Will": {hand:"Right",height:"1.74m",age:27,racket:"Yonex Nanoflare 700",image:"images/will.png"},
