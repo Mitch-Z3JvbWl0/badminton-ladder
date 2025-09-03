@@ -4,88 +4,95 @@
   <meta charset="UTF-8">
   <title>FBD Badminton League</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Cache-busting to avoid stale loads -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
+  <link rel="icon" href="favicon.ico">
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css?v=20240903">
-
+  <link rel="stylesheet" href="style.css?v=7">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>🏸 FBD Badminton League</h1>
+    <h1>FBD Badminton League</h1>
     <nav>
-      <a href="#" onclick="showPage('fixturesPage',this)" class="active">Fixtures</a>
-      <a href="#" onclick="showPage('standingsPage',this)">Standings</a>
-      <a href="#" onclick="showPage('statsPage',this)">Player Stats</a>
-      <a href="#" onclick="showPage('schedulePage',this)">Schedule</a>
-      <a href="#" onclick="showPage('profilesPage',this)">Profiles</a>
+      <a href="#" class="active" onclick="showPage('standings', this)">Standings</a>
+      <a href="#" onclick="showPage('fixtures', this)">Fixtures</a>
+      <a href="#" onclick="showPage('stats', this)">Player Stats</a>
+      <a href="#" onclick="showPage('schedule', this)">Schedule</a>
+      <a href="#" onclick="showPage('profiles', this)">Profiles</a>
       <button onclick="toggleDark()">🌙</button>
     </nav>
   </header>
 
   <main>
-    <!-- Fixtures -->
-    <section id="fixturesPage" class="nav-page">
-      <h2>Fixtures</h2>
-      <div id="fixturesContainer" class="fixtures-container"></div>
-    </section>
-
     <!-- Standings -->
-    <section id="standingsPage" class="nav-page" style="display:none;">
-      <h2>Standings (Season <span id="seasonLabel">1</span>)</h2>
-      <table id="standingsTable" class="league-table">
-        <thead>
-          <tr>
-            <th>Rank</th><th>Player</th><th>Played</th><th>Wins</th><th>Losses</th><th>Points</th><th>MMR</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <section id="standings" class="nav-page">
+      <h2>League Standings (Season <span id="seasonLabel">1</span>)</h2>
       <div id="podiumContainer" class="podium"></div>
-    </section>
-
-    <!-- Player Stats -->
-    <section id="statsPage" class="nav-page" style="display:none;">
-      <h2>Player Stats</h2>
-      <div id="playerStats" class="stats-grid"></div>
+      <div class="card">
+        <table id="standingsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Played</th>
+              <th>Wins</th>
+              <th>Losses</th>
+              <th>Points</th>
+              <th>MMR</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
       <div class="charts">
         <canvas id="pointsChart"></canvas>
         <canvas id="eloChart"></canvas>
       </div>
     </section>
 
+    <!-- Fixtures -->
+    <section id="fixtures" class="nav-page" style="display:none;">
+      <h2>Fixtures</h2>
+      <div id="fixturesContainer"></div>
+    </section>
+
+    <!-- Player Stats -->
+    <section id="stats" class="nav-page" style="display:none;">
+      <h2>Player Statistics</h2>
+      <div id="playerStats" class="stats-grid"></div>
+    </section>
+
     <!-- Schedule -->
-    <section id="schedulePage" class="nav-page" style="display:none;">
+    <section id="schedule" class="nav-page" style="display:none;">
       <h2>Upcoming Schedule</h2>
-      <table id="scheduleTable" class="schedule-table">
-        <thead>
-          <tr><th>Week</th><th>Player A</th><th>Player B</th><th>Court</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="card">
+        <table id="scheduleTable">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Player A</th>
+              <th>Player B</th>
+              <th>Court</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Profiles -->
-    <section id="profilesPage" class="nav-page" style="display:none;">
+    <section id="profiles" class="nav-page" style="display:none;">
       <h2>Player Profiles</h2>
       <div id="profilesContainer" class="profiles-grid"></div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 FBD Badminton League • Powered by JavaScript + Chart.js</p>
+    <p>&copy; 2025 FBD Badminton League</p>
   </footer>
 
-  <!-- Scripts with cache-busting -->
-<script src="data.v2.js?v=4"></script>
-<script src="league.v2.js?v=4"></script>
-
+  <!-- Scripts (order matters: data first, then league logic) -->
+  <script src="data.v2.js?v=7"></script>
+  <script src="league.v2.js?v=7"></script>
 </body>
 </html>
-
