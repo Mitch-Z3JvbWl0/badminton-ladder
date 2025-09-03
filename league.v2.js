@@ -224,14 +224,26 @@ function renderAll(){
   });
 
   // === Charts (Points + Elo over season) ===
-  let ctx1=document.getElementById("pointsChart").getContext("2d");
-  new Chart(ctx1,{
-    type:'bar',
-    data:{
-      labels:standings.map(p=>p.name),
-      datasets:[{label:'Points',data:standings.map(p=>p.points),backgroundColor:'#004080'}]
+new Chart(ctx1,{
+  type:'bar',
+  data:{
+    labels:standings.map(p=>p.name),
+    datasets:[{
+      label:'Points',
+      data:standings.map(p=>p.points),
+      backgroundColor:'#2196f3'
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{color:'#ccc'},grid:{color:'#333'}},
+      y:{ticks:{color:'#ccc'},grid:{color:'#333'}}
     }
-  });
+  }
+});
+
 
   let ctx2=document.getElementById("eloChart").getContext("2d");
   new Chart(ctx2,{
