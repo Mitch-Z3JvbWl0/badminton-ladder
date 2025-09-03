@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.ico">
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -19,11 +19,18 @@
       <a href="#" onclick="showPage('stats', this)">Player Stats</a>
       <a href="#" onclick="showPage('schedule', this)">Schedule</a>
       <a href="#" onclick="showPage('profiles', this)">Profiles</a>
+      <a href="#" onclick="showPage('newsFeed', this)">News</a>
       <button onclick="toggleDark()">🌙</button>
     </nav>
   </header>
 
   <main>
+    <!-- News Feed -->
+    <section id="newsFeed" class="nav-page" style="display:none;">
+      <h2>Latest News</h2>
+      <div id="newsContainer" class="news-grid"></div>
+    </section>
+
     <!-- Standings -->
     <section id="standings" class="nav-page">
       <h2>League Standings (Season <span id="seasonLabel">1</span>)</h2>
@@ -92,7 +99,7 @@
   </footer>
 
   <!-- Scripts (order matters: data first, then league logic) -->
-  <script src="data.v2.js?v=7"></script>
-  <script src="league.v2.js?v=7"></script>
+  <script src="data.v2.js?v=8"></script>
+  <script src="league.v2.js?v=8"></script>
 </body>
 </html>
