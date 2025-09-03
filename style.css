@@ -296,3 +296,23 @@ body.dark {
   background: #0d0d0d;
   color: #ccc;
 }
+/* Existing styles remain */
+
+#newsFeed { margin: 2rem 0; }
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.news-card {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.news-card p {
+  margin: 0;
+  color: #eee;
+}
+.news-card strong { color: #ffd600; }
+
