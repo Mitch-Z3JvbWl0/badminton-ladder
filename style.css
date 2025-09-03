@@ -183,6 +183,18 @@ tr:hover {
   color: #004080;
 }
 
+/* === Player Profile Cards (BWF Style) === */
+.profile-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #004080;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin-bottom: 0.5rem;
+}
+
+
 /* === Charts === */
 .charts {
   display: grid;
