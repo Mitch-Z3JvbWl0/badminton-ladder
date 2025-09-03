@@ -13,7 +13,7 @@ const chartColors = [
 
 // === Helper: render player name with emoji if injured ===
 function renderName(name){
-  let status = (playerProfiles[name] && playerProfiles[name].status) || "active";
+  let status = (playerProfiles[name] && playerProfiles[name].status) || "";
   let emoji = status === "injured" ? " 🩼" : "";
   return `${name}${emoji}`;
 }
@@ -196,8 +196,14 @@ function renderAll(){
   let sBody=document.querySelector("#standingsTable tbody"); 
   sBody.innerHTML="";
   standings.forEach((p,i)=>{
-    let prof = playerProfiles[p.name] || { status:"active" };
-    let badge = `<span class="status-badge status-${prof.status}">${prof.status}</span>`;
+    let prof = playerProfiles[p.name] || {};
+    let status = prof.status || "";
+    let badge = "";
+
+    if (status === "injured") {
+      badge = `<span class="status-badge status-injured">injured 🩼</span>`;
+    }
+
     let tr=document.createElement("tr");
     let medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
     tr.innerHTML=`<td>${i+1}</td>
@@ -211,13 +217,20 @@ function renderAll(){
   let podium=document.getElementById("podiumContainer"); 
   podium.innerHTML="";
   standings.slice(0,3).forEach((p)=>{
-    let prof=playerProfiles[p.name] || { image:"img/default.jpg", status:"active" };
+    let prof=playerProfiles[p.name] || {};
+    let status = prof.status || "";
+    let badge = "";
+
+    if (status === "injured") {
+      badge = `<span class="status-badge status-injured">injured 🩼</span>`;
+    }
+
     let card=document.createElement("div"); 
     card.className="podium-card";
-    card.innerHTML=`<img src="${prof.image}" alt="${p.name}">
+    card.innerHTML=`<img src="${prof.image || "images/default.png"}" alt="${p.name}">
                     <h3>${renderName(p.name)}</h3>
                     <p><b>${p.points}</b> pts • Elo ${p.rating.toFixed(0)}</p>
-                    <span class="status-badge status-${prof.status}">${prof.status}</span>`;
+                    ${badge}`;
     podium.appendChild(card);
   });
 
@@ -323,13 +336,18 @@ function renderAll(){
   let pDiv=document.getElementById("profilesContainer"); 
   pDiv.innerHTML="";
   Object.entries(playerProfiles).forEach(([name,prof])=>{
-    let status = prof.status || "active";
+    let status = prof.status || "";
+    let badge = "";
+    if (status === "injured") {
+      badge = `<span class="status-badge status-injured">injured 🩼</span>`;
+    }
+
     let card=document.createElement("div"); 
     card.className="profile-card";
     card.innerHTML=`
       <img src="${prof.image}" alt="${name}">
       <h3 id="profile-${name}"><a href="player.html?name=${name}">${renderName(name)}</a></h3>
-      <span class="status-badge status-${status}">${status}</span>
+      ${badge}
       <table>
         <tr><th>Hand</th><td>${prof.hand}</td></tr>
         <tr><th>Height</th><td>${prof.height}</td></tr>
