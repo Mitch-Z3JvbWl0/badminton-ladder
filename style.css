@@ -1,3 +1,6 @@
+/* === Google Font === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 /* === Base Reset === */
 * {
   margin: 0;
@@ -6,24 +9,26 @@
 }
 
 body {
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.6;
-  background: #f8f9fa;
-  color: #222;
+  background: #121212;
+  color: #eee;
   transition: background 0.3s, color 0.3s;
 }
 
 /* === Header === */
 header {
-  background: #004080;
+  background: linear-gradient(135deg, #004080, #001f33);
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
 }
 
 header h1 {
   margin-bottom: 0.5rem;
   font-weight: 700;
+  letter-spacing: 1px;
 }
 
 nav {
@@ -36,22 +41,23 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  transition: background 0.2s;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: background 0.2s, transform 0.2s;
 }
 
 nav a.active,
 nav a:hover {
-  background: #0059b3;
+  background: #2196f3;
+  transform: scale(1.05);
 }
 
 nav button {
   margin-left: 1rem;
   background: transparent;
   border: 1px solid white;
-  border-radius: 6px;
-  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
   cursor: pointer;
   color: white;
 }
@@ -65,35 +71,49 @@ main {
 
 h2 {
   margin-bottom: 1rem;
-  border-bottom: 2px solid #004080;
+  border-bottom: 2px solid #2196f3;
   padding-bottom: 0.3rem;
-  color: #004080;
+  color: #fff;
+}
+
+/* === Card Style (Universal) === */
+.card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* === Tables === */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  border-radius: 6px;
+  margin: 1rem 0;
+  background: #1e1e1e;
+  border-radius: 10px;
   overflow: hidden;
 }
 
 th, td {
   padding: 0.6rem;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #333;
 }
 
 th {
-  background: #f1f5fb;
+  background: #004080;
+  color: #fff;
   font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background: #181818;
 }
 
 tr:hover {
-  background: #f9fcff;
+  background: #222;
 }
 
 /* === Podium === */
@@ -102,25 +122,34 @@ tr:hover {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .podium-card {
-  background: white;
+  background: #1e1e1e;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   padding: 1rem;
   text-align: center;
-  width: 160px;
+  width: 180px;
+  transition: transform 0.2s;
+}
+
+.podium-card:hover {
+  transform: translateY(-5px);
 }
 
 .podium-card img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #004080;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 3px solid #ffd600;
   margin-bottom: 0.5rem;
+}
+
+.podium-card h3 {
+  color: #ffd600;
 }
 
 /* === Stats Grid === */
@@ -132,28 +161,15 @@ tr:hover {
 }
 
 .stats-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
   padding: 1rem;
 }
 
 .stats-card h3 {
   margin-bottom: 0.5rem;
-  color: #004080;
-}
-
-.stats-card table {
-  font-size: 0.9rem;
-  border-collapse: collapse;
-}
-
-.stats-card th,
-.stats-card td {
-  padding: 0.4rem;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  white-space: nowrap;
+  color: #2196f3;
 }
 
 /* === Profiles Grid (League Page) === */
@@ -164,27 +180,31 @@ tr:hover {
 }
 
 .profile-card {
-  background: white;
+  background: #1e1e1e;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
   padding: 1rem;
   text-align: center;
+  transition: transform 0.2s;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
 }
 
 .profile-card img {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #004080;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 3px solid #2196f3;
   margin-bottom: 0.5rem;
 }
 
 .profile-card h3 {
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
-  color: #004080;
+  color: #2196f3;
 }
 
 /* === Player Profile Page (player.html) === */
@@ -194,6 +214,9 @@ tr:hover {
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .profile-header img {
@@ -201,8 +224,8 @@ tr:hover {
   height: 220px;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid #004080;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  border: 4px solid #2196f3;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
 }
 
 .profile-info {
@@ -211,30 +234,51 @@ tr:hover {
 
 .player-tag {
   font-weight: 500;
-  color: #555;
+  color: #bbb;
   margin-bottom: 0.5rem;
 }
 
-.info-table {
-  width: auto;
-  margin-top: 0.5rem;
-  background: white;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
 /* === Charts === */
-.charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+canvas {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
-canvas {
-  background: white;
+/* === Match of the Week Card === */
+.motw-card {
+  margin: 1rem 0;
   padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background: #1e1e1e;
+  border-left: 6px solid #ffd600;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.motw-card h4 {
+  margin-bottom: 0.5rem;
+  color: #ffd600;
+}
+
+.motw-card p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* === Weekly Summary Table === */
+.weekly-summary {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.weekly-summary h5 {
+  margin-bottom: 0.5rem;
+  color: #2196f3;
 }
 
 /* === Footer === */
@@ -247,32 +291,8 @@ footer {
   font-size: 0.9rem;
 }
 
-/* === Dark Mode === */
+/* === Dark Mode (already default) === */
 body.dark {
-  background: #1e1e1e;
-  color: #ddd;
-}
-
-body.dark header,
-body.dark footer {
-  background: #111;
-}
-
-body.dark nav a.active,
-body.dark nav a:hover {
-  background: #333;
-}
-
-body.dark table,
-body.dark .podium-card,
-body.dark .stats-card,
-body.dark .profile-card,
-body.dark .profile-header img,
-body.dark canvas {
-  background: #2a2a2a;
-  color: #ddd;
-}
-
-body.dark th {
-  background: #333;
+  background: #0d0d0d;
+  color: #ccc;
 }
