@@ -27,10 +27,8 @@ function buildLeague(fixtures){
     // Save only winner's MMR gain
     if (Sa === 1) {
       m.mmrGain = changeA.toFixed(1);
-      m.mmrLoss = changeB.toFixed(1);
     } else {
       m.mmrGain = changeB.toFixed(1);
-      m.mmrLoss = changeA.toFixed(1);
     }
 
     if(Sa){
@@ -113,18 +111,18 @@ function renderAll(){
                     <td style="color:green;">+${m.mmrGain || "0"}</td>`;
       tb.appendChild(tr);
 
-// Track MMR per player (zero-sum)
-if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
-if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
+      // Track MMR per player (zero-sum: winner +gain, loser -gain)
+      if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
+      if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
 
-let gain = parseFloat(m.mmrGain||0);
-if(m.Winner===m.A){
-  mmrByPlayer[m.A]+=gain;
-  mmrByPlayer[m.B]-=gain;
-} else {
-  mmrByPlayer[m.B]+=gain;
-  mmrByPlayer[m.A]-=gain;
-}
+      let gain = parseFloat(m.mmrGain||0);
+      if(m.Winner===m.A){
+        mmrByPlayer[m.A]+=gain;
+        mmrByPlayer[m.B]-=gain;
+      } else {
+        mmrByPlayer[m.B]+=gain;
+        mmrByPlayer[m.A]-=gain;
+      }
 
       // Track biggest MMR gain match of this week
       if(!bestMatch || parseFloat(m.mmrGain)>parseFloat(bestMatch.mmrGain)){
@@ -135,19 +133,26 @@ if(m.Winner===m.A){
     tbl.appendChild(tb); 
     details.appendChild(tbl); 
 
-    // === Weekly MMR Totals Table ===
+    // === Weekly MMR Totals Table (sorted) ===
     let totals=document.createElement("table");
     totals.classList.add("fixtures");
     totals.innerHTML="<thead><tr><th>Player</th><th>Net MMR ±</th></tr></thead>";
     let tBody=document.createElement("tbody");
-    Object.entries(mmrByPlayer).forEach(([name,val])=>{
-      let tr=document.createElement("tr");
-      let color=val>=0?"green":"red";
-      tr.innerHTML=`<td>${name}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
-      tBody.appendChild(tr);
-    });
+    Object.entries(mmrByPlayer)
+      .sort((a,b)=>b[1]-a[1])
+      .forEach(([name,val])=>{
+        let tr=document.createElement("tr");
+        let color=val>=0?"green":"red";
+        tr.innerHTML=`<td>${name}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
+        tBody.appendChild(tr);
+      });
     totals.appendChild(tBody);
-    details.appendChild(totals);
+
+    let wrap=document.createElement("div");
+    wrap.className="weekly-summary";
+    wrap.innerHTML="<h5>Weekly MMR Totals</h5>";
+    wrap.appendChild(totals);
+    details.appendChild(wrap);
 
     // === Match of the Week ===
     if(bestMatch){
