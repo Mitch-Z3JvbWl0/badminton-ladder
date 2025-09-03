@@ -11,6 +11,13 @@ const chartColors = [
   "#9c27b0"  // purple
 ];
 
+// === Helper: render player name with emoji if injured ===
+function renderName(name){
+  let status = (playerProfiles[name] && playerProfiles[name].status) || "active";
+  let emoji = status === "injured" ? " 🩼" : "";
+  return `${name}${emoji}`;
+}
+
 // === League Builder (Elo system) ===
 function buildLeague(fixtures){
   const players = {};
@@ -121,8 +128,10 @@ function renderAll(){
 
     weekMatches.forEach((m,i)=>{
       let tr=document.createElement("tr");
-      tr.innerHTML=`<td>${i+1}</td><td>${m.A}</td><td>${m.Ascore}</td>
-                    <td>${m.B}</td><td>${m.Bscore}</td><td class="winner">${m.Winner}</td>
+      tr.innerHTML=`<td>${i+1}</td>
+                    <td>${renderName(m.A)}</td><td>${m.Ascore}</td>
+                    <td>${renderName(m.B)}</td><td>${m.Bscore}</td>
+                    <td class="winner">${renderName(m.Winner)}</td>
                     <td style="color:green;">+${m.mmrGain || "0"}</td>`;
       tb.appendChild(tr);
 
@@ -158,7 +167,7 @@ function renderAll(){
       .forEach(([name,val])=>{
         let tr=document.createElement("tr");
         let color=val>=0?"#00c853":"#e53935";
-        tr.innerHTML=`<td>${name}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
+        tr.innerHTML=`<td>${renderName(name)}</td><td style="color:${color};">${val.toFixed(1)}</td>`;
         tBody.appendChild(tr);
       });
     totals.appendChild(tBody);
@@ -174,7 +183,7 @@ function renderAll(){
       let motw=document.createElement("div");
       motw.className="motw-card";
       motw.innerHTML=`<h4>🏆 Match of the Week</h4>
-        <p><b>${bestMatch.Winner}</b> def. ${bestMatch.Winner===bestMatch.A?bestMatch.B:bestMatch.A} 
+        <p><b>${renderName(bestMatch.Winner)}</b> def. ${bestMatch.Winner===bestMatch.A?renderName(bestMatch.B):renderName(bestMatch.A)} 
         (${bestMatch.Ascore}–${bestMatch.Bscore}) 
         <span style="color:#ffd600;">+${bestMatch.mmrGain} MMR</span></p>`;
       details.appendChild(motw);
@@ -187,12 +196,12 @@ function renderAll(){
   let sBody=document.querySelector("#standingsTable tbody"); 
   sBody.innerHTML="";
   standings.forEach((p,i)=>{
-    let status = playerProfiles[p.name].status || "active";
-    let badge = `<span class="status-badge status-${status}">${status}</span>`;
+    let prof = playerProfiles[p.name] || { status:"active" };
+    let badge = `<span class="status-badge status-${prof.status}">${prof.status}</span>`;
     let tr=document.createElement("tr");
     let medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":"";
     tr.innerHTML=`<td>${i+1}</td>
-                  <td><a href="player.html?name=${p.name}">${medal} ${p.name}</a> ${badge}</td>
+                  <td><a href="player.html?name=${p.name}">${medal} ${renderName(p.name)}</a> ${badge}</td>
                   <td>${p.played}</td><td>${p.wins}</td><td>${p.losses}</td>
                   <td>${p.points}</td><td>${p.rating.toFixed(1)}</td>`;
     sBody.appendChild(tr);
@@ -202,14 +211,13 @@ function renderAll(){
   let podium=document.getElementById("podiumContainer"); 
   podium.innerHTML="";
   standings.slice(0,3).forEach((p)=>{
-    let prof=playerProfiles[p.name];
-    let status = prof.status || "active";
+    let prof=playerProfiles[p.name] || { image:"img/default.jpg", status:"active" };
     let card=document.createElement("div"); 
     card.className="podium-card";
     card.innerHTML=`<img src="${prof.image}" alt="${p.name}">
-                    <h3>${p.name}</h3>
+                    <h3>${renderName(p.name)}</h3>
                     <p><b>${p.points}</b> pts • Elo ${p.rating.toFixed(0)}</p>
-                    <span class="status-badge status-${status}">${status}</span>`;
+                    <span class="status-badge status-${prof.status}">${prof.status}</span>`;
     podium.appendChild(card);
   });
 
@@ -227,12 +235,12 @@ function renderAll(){
       Object.entries(p.h2h).forEach(([o,h])=>{
         let margin=((h.for-h.against)/(h.played||1)).toFixed(1);
         let mmr = (h.mmr||0).toFixed(1);
-        h2h+=`<tr><td>${o}</td><td>${h.played}</td><td>${h.wins}</td><td>${h.losses}</td>
+        h2h+=`<tr><td>${renderName(o)}</td><td>${h.played}</td><td>${h.wins}</td><td>${h.losses}</td>
                <td>${h.for}</td><td>${h.against}</td><td>${margin}</td><td>${mmr}</td></tr>`;
       });
     }
     h2h+="</table></div>";
-    card.innerHTML=`<h3>${p.name}</h3>
+    card.innerHTML=`<h3>${renderName(p.name)}</h3>
       <div class="table-wrapper"><table>
         <tr><th>Played</th><td>${p.played}</td><th>Wins</th><td>${p.wins}</td><th>Losses</th><td>${p.losses}</td></tr>
         <tr><th>Points</th><td>${p.points}</td><th>For</th><td>${p.for}</td><th>Against</th><td>${p.against}</td></tr>
@@ -247,7 +255,7 @@ function renderAll(){
   new Chart(ctx1,{
     type:'bar',
     data:{
-      labels:standings.map(p=>p.name),
+      labels:standings.map(p=>renderName(p.name)),
       datasets:[{
         label:'Points',
         data:standings.map(p=>p.points),
@@ -270,7 +278,7 @@ function renderAll(){
     data:{
       labels:fixtures.map((_,i)=>i+1),
       datasets:standings.map((p,i)=>({
-        label:p.name,
+        label:renderName(p.name),
         data:p.eloHistory,
         borderWidth:2,
         fill:false,
@@ -304,7 +312,7 @@ function renderAll(){
       if(A!=="BYE" && B!=="BYE"){
         let court=(i<2)?`Court ${i+1}`:"Overflow";
         let tr=document.createElement("tr");
-        tr.innerHTML=`<td>Week ${r+1}</td><td>${A}</td><td>${B}</td><td>${court}</td>`;
+        tr.innerHTML=`<td>Week ${r+1}</td><td>${renderName(A)}</td><td>${renderName(B)}</td><td>${court}</td>`;
         schedBody.appendChild(tr);
       }
     }
@@ -320,7 +328,7 @@ function renderAll(){
     card.className="profile-card";
     card.innerHTML=`
       <img src="${prof.image}" alt="${name}">
-      <h3 id="profile-${name}"><a href="player.html?name=${name}">${name}</a></h3>
+      <h3 id="profile-${name}"><a href="player.html?name=${name}">${renderName(name)}</a></h3>
       <span class="status-badge status-${status}">${status}</span>
       <table>
         <tr><th>Hand</th><td>${prof.hand}</td></tr>
