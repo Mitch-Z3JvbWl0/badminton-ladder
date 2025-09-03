@@ -113,13 +113,18 @@ function renderAll(){
                     <td style="color:green;">+${m.mmrGain || "0"}</td>`;
       tb.appendChild(tr);
 
-      // Track MMR per player
-      if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
-      if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
-      mmrByPlayer[m.A]+=parseFloat(m.mmrLoss||0); // loser loses negative
-      mmrByPlayer[m.B]+=parseFloat(m.mmrLoss||0);
-      if(m.Winner===m.A) mmrByPlayer[m.A]+=parseFloat(m.mmrGain||0);
-      else mmrByPlayer[m.B]+=parseFloat(m.mmrGain||0);
+// Track MMR per player (zero-sum)
+if(!mmrByPlayer[m.A]) mmrByPlayer[m.A]=0;
+if(!mmrByPlayer[m.B]) mmrByPlayer[m.B]=0;
+
+let gain = parseFloat(m.mmrGain||0);
+if(m.Winner===m.A){
+  mmrByPlayer[m.A]+=gain;
+  mmrByPlayer[m.B]-=gain;
+} else {
+  mmrByPlayer[m.B]+=gain;
+  mmrByPlayer[m.A]-=gain;
+}
 
       // Track biggest MMR gain match of this week
       if(!bestMatch || parseFloat(m.mmrGain)>parseFloat(bestMatch.mmrGain)){
