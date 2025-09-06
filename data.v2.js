@@ -72,14 +72,14 @@ window.playerProfiles = {
     hand:"Right",
     height:"1.87m",
     age:27,
-    racket:"Unknown",
+    racket:"Yonex Racket",
     image:"images/kepp.png"
   },
   "Sam": {
     hand:"Right",
     height:"1.80m",
-    age:27,
-    racket:"Unknown",
+    age:30,
+    racket:"Carlton Kinesis X1",
     image:"images/sam.png"
   }
 };
