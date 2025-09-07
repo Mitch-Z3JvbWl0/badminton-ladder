@@ -25,7 +25,15 @@ window.fixturesBySeason = {
     {A:"Will",B:"Mitch",Ascore:17,Bscore:21,Winner:"Mitch",Week:"Week 2"},
     {A:"Jordan",B:"James",Ascore:21,Bscore:17,Winner:"Jordan",Week:"Week 2"},
     {A:"Kepp",B:"Mitch",Ascore:15,Bscore:21,Winner:"Mitch",Week:"Week 2"},
-    {A:"Will",B:"Luke",Ascore:18,Bscore:21,Winner:"Luke",Week:"Week 2"}
+    {A:"Will",B:"Luke",Ascore:18,Bscore:21,Winner:"Luke",Week:"Week 2"},
+    {A:"Will",B:"James",Ascore:13,Bscore:21,Winner:"James",Week:"Week 3"},
+    {A:"Kepp",B:"Jordan",Ascore:13,Bscore:21,Winner:"Jordan",Week:"Week 3"},
+    {A:"Kepp",B:"Will",Ascore:19,Bscore:21,Winnner:"Will",Week:"Week 3"},
+    {A:"Jordan",B:"Luke",Ascore:21,Bscore:19,Winner:"Jordan", Week:"Week 3"},
+    {A:"Kepp",B:"Kath",Ascore:15,Bscore:21,Winner:"Kath",Week:"Week 3"},
+    {A:"James",B:"Luke",Ascore:6,Bscore:21,Winner:"Luke",Week:"Week 3"},
+    {A:"Kath",B:"Luke",Ascore:16,Bscore:21,Winner:"Luke",Week:"Week 3"},
+    {A:"James",B:"Jordan",Ascore:19,Bscore:21,Winner:"Jordan",Week:"Week 3"}
   ],
   "2": [] // future
 };
@@ -81,5 +89,12 @@ window.playerProfiles = {
     age:30,
     racket:"Carlton Kinesis X1",
     image:"images/sam.png"
+  },
+  "Kath": {
+    hand:"Right",
+    height:"1.20m",
+    age:27,
+    racket:"Yonex Racket",
+    image:"images/kath.png"
   }
 };
