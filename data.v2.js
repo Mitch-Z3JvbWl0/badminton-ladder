@@ -46,71 +46,18 @@ window.fixturesBySeason = {
     {A:"Luke",B:"Sam",Ascore:20,Bscore:22,Winner:"Sam",Week:"Week 4"},
     {A:"Kepp",B:"Jordan",Ascore:18,Bscore:21,Winner:"Jordan",Week:"Week 4"},
     {A:"Luke",B:"Will",Ascore:21,Bscore:10,Winner:"Luke",Week:"Week 4"}
-  ]
-
-// Append to Season 1
-window.fixturesBySeason["1"].push(...week4);
   ],
   "2": [] // future
 };
 
 // Player profiles
 window.playerProfiles = {
-  "Mitch": {
-    hand:"Right",
-    height:"1.75m",
-    age:32,
-    racket:"Yonex Astrox 88D",
-    image:"images/mitch.png",
-    status:"injured"
-  },
-  "Luke": {
-    hand:"Left",
-    height:"1.749m",
-    age:29,
-    racket:"Yonex Nanoflare 001",
-    image:"images/luke.png"
-  },
-  "James": {
-    hand:"Right",
-    height:"1.79m",
-    age:27,
-    racket:"Yonex Arcsaber 11",
-    image:"images/james.png"
-  },
-  "Will": {
-    hand:"Right",
-    height:"1.74m",
-    age:27,
-    racket:"Yonex Nanoflare 700",
-    image:"images/will.png"
-  },
-  "Jordan": {
-    hand:"Right",
-    height:"1.82m",
-    age:29,
-    racket:"Li-Ning Halbertec 2000",
-    image:"images/jordan.png"
-  },
-  "Kepp": {
-    hand:"Right",
-    height:"1.87m",
-    age:27,
-    racket:"Yonex Racket",
-    image:"images/kepp.png"
-  },
-  "Sam": {
-    hand:"Right",
-    height:"1.80m",
-    age:30,
-    racket:"Carlton Kinesis X1",
-    image:"images/sam.png"
-  },
-  "Kath": {
-    hand:"Right",
-    height:"1.20m",
-    age:27,
-    racket:"Yonex Racket",
-    image:"images/kath.png"
-  }
+  "Mitch": {hand:"Right",height:"1.75m",age:32,racket:"Yonex Astrox 88D",image:"images/mitch.png",status:"injured"},
+  "Luke":  {hand:"Left",height:"1.749m",age:29,racket:"Yonex Nanoflare 001",image:"images/luke.png"},
+  "James": {hand:"Right",height:"1.79m",age:27,racket:"Yonex Arcsaber 11",image:"images/james.png"},
+  "Will":  {hand:"Right",height:"1.74m",age:27,racket:"Yonex Nanoflare 700",image:"images/will.png"},
+  "Jordan":{hand:"Right",height:"1.82m",age:29,racket:"Li-Ning Halbertec 2000",image:"images/jordan.png"},
+  "Kepp":  {hand:"Right",height:"1.87m",age:27,racket:"Yonex Racket",image:"images/kepp.png"},
+  "Sam":   {hand:"Right",height:"1.80m",age:30,racket:"Carlton Kinesis X1",image:"images/sam.png"},
+  "Kath":  {hand:"Right",height:"1.20m",age:27,racket:"Yonex Racket",image:"images/kath.png"}
 };
