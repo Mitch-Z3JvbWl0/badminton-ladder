@@ -29,24 +29,24 @@ window.fixturesBySeason = {
     {A:"Will",B:"James",Ascore:13,Bscore:21,Winner:"James",Week:"Week 3"},
     {A:"Kepp",B:"Jordan",Ascore:13,Bscore:21,Winner:"Jordan",Week:"Week 3"},
     {A:"Kepp",B:"Will",Ascore:19,Bscore:21,Winner:"Will",Week:"Week 3"},
-    {A:"Jordan",B:"Luke",Ascore:21,Bscore:19,Winner:"Jordan", Week:"Week 3"},
+    {A:"Jordan",B:"Luke",Ascore:21,Bscore:19,Winner:"Jordan",Week:"Week 3"},
     {A:"Kepp",B:"Kath",Ascore:15,Bscore:21,Winner:"Kath",Week:"Week 3"},
     {A:"James",B:"Luke",Ascore:6,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"Kath",B:"Luke",Ascore:16,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"James",B:"Jordan",Ascore:19,Bscore:21,Winner:"Jordan",Week:"Week 3"},
-  {A:"Kepp",  B:"Luke",  Ascore:21, Bscore:14, Winner:"Kepp",   Week:"Week 4"},
-  {A:"Will",  B:"Sam",   Ascore:21, Bscore:18, Winner:"Will",   Week:"Week 4"},
-  {A:"Jordan",B:"James", Ascore:21, Bscore:15, Winner:"Jordan", Week:"Week 4"},
-  {A:"Sam",   B:"Kepp",  Ascore:21, Bscore:14, Winner:"Sam",    Week:"Week 4"},
-  {A:"Jordan",B:"Will",  Ascore:21, Bscore:10, Winner:"Jordan", Week:"Week 4"},
-  {A:"James", B:"Luke",  Ascore:20, Bscore:22, Winner:"Luke",   Week:"Week 4"},
-  {A:"Jordan",B:"Sam",   Ascore:19, Bscore:21, Winner:"Sam",    Week:"Week 4"},
-  {A:"Kepp",  B:"Will",  Ascore:21, Bscore: 6, Winner:"Kepp",   Week:"Week 4"},
-  {A:"James", B:"Kepp",  Ascore:21, Bscore:17, Winner:"James",  Week:"Week 4"},
-  {A:"Luke",  B:"Sam",   Ascore:20, Bscore:22, Winner:"Sam",    Week:"Week 4"},
-  {A:"Kepp",  B:"Jordan",Ascore:18, Bscore:21, Winner:"Jordan", Week:"Week 4"},
-  {A:"Luke",  B:"Will",  Ascore:21, Bscore:10, Winner:"Luke",   Week:"Week 4"}
-];
+    {A:"Kepp",B:"Luke",Ascore:21,Bscore:14,Winner:"Kepp",Week:"Week 4"},
+    {A:"Will",B:"Sam",Ascore:21,Bscore:18,Winner:"Will",Week:"Week 4"},
+    {A:"Jordan",B:"James",Ascore:21,Bscore:15,Winner:"Jordan",Week:"Week 4"},
+    {A:"Sam",B:"Kepp",Ascore:21,Bscore:14,Winner:"Sam",Week:"Week 4"},
+    {A:"Jordan",B:"Will",Ascore:21,Bscore:10,Winner:"Jordan",Week:"Week 4"},
+    {A:"James",B:"Luke",Ascore:20,Bscore:22,Winner:"Luke",Week:"Week 4"},
+    {A:"Jordan",B:"Sam",Ascore:19,Bscore:21,Winner:"Sam",Week:"Week 4"},
+    {A:"Kepp",B:"Will",Ascore:21,Bscore:6,Winner:"Kepp",Week:"Week 4"},
+    {A:"James",B:"Kepp",Ascore:21,Bscore:17,Winner:"James",Week:"Week 4"},
+    {A:"Luke",B:"Sam",Ascore:20,Bscore:22,Winner:"Sam",Week:"Week 4"},
+    {A:"Kepp",B:"Jordan",Ascore:18,Bscore:21,Winner:"Jordan",Week:"Week 4"},
+    {A:"Luke",B:"Will",Ascore:21,Bscore:10,Winner:"Luke",Week:"Week 4"}
+  ]
 
 // Append to Season 1
 window.fixturesBySeason["1"].push(...week4);
