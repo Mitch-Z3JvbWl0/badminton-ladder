@@ -34,7 +34,6 @@ window.fixturesBySeason = {
     {A:"James",B:"Luke",Ascore:6,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"Kath",B:"Luke",Ascore:16,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"James",B:"Jordan",Ascore:19,Bscore:21,Winner:"Jordan",Week:"Week 3"},
-  
   {A:"Kepp",  B:"Luke",  Ascore:21, Bscore:14, Winner:"Kepp",   Week:"Week 4"},
   {A:"Will",  B:"Sam",   Ascore:21, Bscore:18, Winner:"Will",   Week:"Week 4"},
   {A:"Jordan",B:"James", Ascore:21, Bscore:15, Winner:"Jordan", Week:"Week 4"},
