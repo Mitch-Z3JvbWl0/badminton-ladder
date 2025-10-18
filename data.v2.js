@@ -11,6 +11,7 @@ window.fixturesBySeason = {
     {A:"Mitch",B:"Will",Ascore:11,Bscore:8,Winner:"Mitch",Week:"Week 1"},
     {A:"James",B:"Jordan",Ascore:3,Bscore:11,Winner:"Jordan",Week:"Week 1"},
     {A:"Luke",B:"Mitch",Ascore:9,Bscore:11,Winner:"Mitch",Week:"Week 1"},
+
     {A:"Will",B:"Kepp",Ascore:21,Bscore:18,Winner:"Will",Week:"Week 2"},
     {A:"Luke",B:"Jordan",Ascore:12,Bscore:21,Winner:"Jordan",Week:"Week 2"},
     {A:"James",B:"Mitch",Ascore:18,Bscore:21,Winner:"Mitch",Week:"Week 2"},
@@ -26,6 +27,7 @@ window.fixturesBySeason = {
     {A:"Jordan",B:"James",Ascore:21,Bscore:17,Winner:"Jordan",Week:"Week 2"},
     {A:"Kepp",B:"Mitch",Ascore:15,Bscore:21,Winner:"Mitch",Week:"Week 2"},
     {A:"Will",B:"Luke",Ascore:18,Bscore:21,Winner:"Luke",Week:"Week 2"},
+
     {A:"Will",B:"James",Ascore:13,Bscore:21,Winner:"James",Week:"Week 3"},
     {A:"Kepp",B:"Jordan",Ascore:13,Bscore:21,Winner:"Jordan",Week:"Week 3"},
     {A:"Kepp",B:"Will",Ascore:19,Bscore:21,Winner:"Will",Week:"Week 3"},
@@ -34,6 +36,7 @@ window.fixturesBySeason = {
     {A:"James",B:"Luke",Ascore:6,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"Kath",B:"Luke",Ascore:16,Bscore:21,Winner:"Luke",Week:"Week 3"},
     {A:"James",B:"Jordan",Ascore:19,Bscore:21,Winner:"Jordan",Week:"Week 3"},
+
     {A:"Kepp",B:"Luke",Ascore:21,Bscore:14,Winner:"Kepp",Week:"Week 4"},
     {A:"Will",B:"Sam",Ascore:21,Bscore:18,Winner:"Will",Week:"Week 4"},
     {A:"Jordan",B:"James",Ascore:21,Bscore:15,Winner:"Jordan",Week:"Week 4"},
@@ -46,16 +49,34 @@ window.fixturesBySeason = {
     {A:"Luke",B:"Sam",Ascore:20,Bscore:22,Winner:"Sam",Week:"Week 4"},
     {A:"Kepp",B:"Jordan",Ascore:18,Bscore:21,Winner:"Jordan",Week:"Week 4"},
     {A:"Luke",B:"Will",Ascore:21,Bscore:10,Winner:"Luke",Week:"Week 4"},
-{A:"Jordan",B:"Sam",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
-{A:"Luke",B:"Will",Ascore:21,Bscore:17,Winner:"Luke",Week:"Week 5"},
-{A:"Jordan",B:"Will",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
-{A:"Sam",B:"James",Ascore:21,Bscore:18,Winner:"Sam",Week:"Week 5"},
-{A:"Jordan",B:"Luke",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
-{A:"Sam",B:"Will",Ascore:21,Bscore:18,Winner:"Sam",Week:"Week 5"},
-{A:"Luke",B:"Sam",Ascore:21,Bscore:12,Winner:"Luke",Week:"Week 5"},
-{A:"Mitch",B:"James",Ascore:21,Bscore:11,Winner:"Mitch",Week:"Week 5"},
-{A:"James",B:"Luke",Ascore:21,Bscore:15,Winner:"James",Week:"Week 5"},
-{A:"Mitch",B:"Sam",Ascore:21,Bscore:14,Winner:"Mitch",Week:"Week 5"}
+
+    {A:"Jordan",B:"Sam",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
+    {A:"Luke",B:"Will",Ascore:21,Bscore:17,Winner:"Luke",Week:"Week 5"},
+    {A:"Jordan",B:"Will",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
+    {A:"Sam",B:"James",Ascore:21,Bscore:18,Winner:"Sam",Week:"Week 5"},
+    {A:"Jordan",B:"Luke",Ascore:21,Bscore:12,Winner:"Jordan",Week:"Week 5"},
+    {A:"Sam",B:"Will",Ascore:21,Bscore:18,Winner:"Sam",Week:"Week 5"},
+    {A:"Luke",B:"Sam",Ascore:21,Bscore:12,Winner:"Luke",Week:"Week 5"},
+    {A:"Mitch",B:"James",Ascore:21,Bscore:11,Winner:"Mitch",Week:"Week 5"},
+    {A:"James",B:"Luke",Ascore:21,Bscore:15,Winner:"James",Week:"Week 5"},
+    {A:"Mitch",B:"Sam",Ascore:21,Bscore:14,Winner:"Mitch",Week:"Week 5"},
+
+    // === Week 6 (latest) ===
+    {A:"Jordan",B:"James",Ascore:21,Bscore:11,Winner:"Jordan",Week:"Week 6"},
+    {A:"Sam",B:"Luke",Ascore:21,Bscore:19,Winner:"Sam",Week:"Week 6"},
+    {A:"Mitch",B:"James",Ascore:21,Bscore:18,Winner:"Mitch",Week:"Week 6"},
+    {A:"Jordan",B:"Will",Ascore:21,Bscore:15,Winner:"Jordan",Week:"Week 6"},
+    {A:"Mitch",B:"Luke",Ascore:21,Bscore:6,Winner:"Mitch",Week:"Week 6"},
+    {A:"Sam",B:"Will",Ascore:21,Bscore:17,Winner:"Sam",Week:"Week 6"},
+    {A:"Jordan",B:"Sam",Ascore:22,Bscore:20,Winner:"Jordan",Week:"Week 6"},
+    {A:"Luke",B:"James",Ascore:21,Bscore:19,Winner:"Luke",Week:"Week 6"},
+    {A:"Mitch",B:"Sam",Ascore:21,Bscore:16,Winner:"Mitch",Week:"Week 6"},
+    {A:"Will",B:"James",Ascore:21,Bscore:13,Winner:"Will",Week:"Week 6"},
+    {A:"Mitch",B:"Will",Ascore:21,Bscore:16,Winner:"Mitch",Week:"Week 6"},
+    {A:"Jordan",B:"Luke",Ascore:21,Bscore:5,Winner:"Jordan",Week:"Week 6"},
+    {A:"Mitch",B:"Jordan",Ascore:21,Bscore:17,Winner:"Mitch",Week:"Week 6"},
+    {A:"Sam",B:"James",Ascore:21,Bscore:19,Winner:"Sam",Week:"Week 6"},
+    {A:"Will",B:"Luke",Ascore:21,Bscore:13,Winner:"Will",Week:"Week 6"}
   ],
   "2": [] // future
 };
